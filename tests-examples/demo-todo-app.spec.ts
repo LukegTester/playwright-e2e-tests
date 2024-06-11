@@ -213,12 +213,12 @@ test.describe('Editing', () => {
   test('should hide other controls when editing', async ({ page }) => {
     const todoItem = page.getByTestId('todo-item').nth(1);
     await todoItem.dblclick();
-    await expect(todoItem.getByRole('checkbox')).not.toBeVisible();
+    await expect(todoItem.getByRole('checkbox')).toBeHidden();
     await expect(
       todoItem.locator('label', {
         hasText: TODO_ITEMS[1],
       }),
-    ).not.toBeVisible();
+    ).toBeHidden();
     await checkNumberOfTodosInLocalStorage(page, 3);
   });
 
@@ -474,7 +474,7 @@ async function checkNumberOfCompletedTodosInLocalStorage(
   return await page.waitForFunction((e) => {
     return (
       JSON.parse(localStorage['react-todos']).filter(
-        (todo: any) => todo.completed,
+        (todo: { completed: number }) => todo.completed,
       ).length === e
     );
   }, expected);
@@ -483,7 +483,7 @@ async function checkNumberOfCompletedTodosInLocalStorage(
 async function checkTodosInLocalStorage(page: Page, title: string) {
   return await page.waitForFunction((t) => {
     return JSON.parse(localStorage['react-todos'])
-      .map((todo: any) => todo.title)
+      .map((todo: { title: string }) => todo.title)
       .includes(t);
   }, title);
 }

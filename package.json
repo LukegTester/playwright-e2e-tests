@@ -2,13 +2,16 @@
   "name": "gad-tests",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "format": "npx prettier --write ."
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
     "@playwright/test": "^1.44.1",
-    "@types/node": "^20.14.2"
+    "@types/node": "^20.14.2",
+    "prettier": "3.3.2"
   }
 }

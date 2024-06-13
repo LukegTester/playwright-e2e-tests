@@ -12,8 +12,9 @@ export default defineConfig({
   workers: undefined,
   reporter: 'html',
   use: {
+    baseURL: 'http://localhost:3000',
     actionTimeout: 0,
-    trace: 'retain-on-failure',
+    trace: 'on',
     video: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },

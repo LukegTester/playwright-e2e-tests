@@ -1,5 +1,6 @@
 import { LoginPage } from '../src/pages/login.page';
 import { WelcomePage } from '../src/pages/welcome.page';
+import { testUser1 } from '../src/test-data/user.data';
 import { expect, test } from '@playwright/test';
 
 test(
@@ -8,7 +9,7 @@ test(
   async ({ page }) => {
     // Arrange
     const loginPage = new LoginPage(page);
-    const userEmail = 'Moses.Armstrong@Feest.ca';
+    const userEmail = testUser1.userEmail;
     const userPassword = 'test1';
 
     // Act

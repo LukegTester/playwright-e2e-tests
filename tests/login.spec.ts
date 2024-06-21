@@ -10,7 +10,7 @@ test(
     // Arrange
     const loginPage = new LoginPage(page);
     const userEmail = testUser1.userEmail;
-    const userPassword = 'test1';
+    const userPassword = testUser1.userPassword;
 
     // Act
     await loginPage.goto();

@@ -4,5 +4,12 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
-  "cSpell.words": ["dropbtn", "Łukasz", "trivago"]
+  "cSpell.words": [
+    "dropbtn",
+    "Firstname",
+    "jntest",
+    "Lastname",
+    "Łukasz",
+    "trivago"
+  ]
 }

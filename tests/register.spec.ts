@@ -1,6 +1,7 @@
 import { LoginPage } from '../src/pages/login.page';
 import { RegisterPage } from '../src/pages/register.page';
 import { WelcomePage } from '../src/pages/welcome.page';
+import { faker } from '@faker-js/faker';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify register', () => {
@@ -10,10 +11,13 @@ test.describe('Verify register', () => {
     async ({ page }) => {
       // Arrange:
       const registerPage = new RegisterPage(page);
-      const firstName = 'Janina';
-      const lastName = 'Nowak';
-      const email = `jntest${new Date().getTime()}@test.test1`;
-      const password = 'test12134';
+      const firstName = faker.person.firstName();
+      const lastName = faker.person.lastName();
+      const email = faker.internet.email({
+        firstName: firstName,
+        lastName: lastName,
+      });
+      const password = faker.internet.password({ length: 8 });
 
       const expectedMessage = 'User created';
 

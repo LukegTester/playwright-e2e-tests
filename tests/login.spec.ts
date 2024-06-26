@@ -1,3 +1,4 @@
+import { LoginUser } from '../src/models/user.model';
 import { LoginPage } from '../src/pages/login.page';
 import { WelcomePage } from '../src/pages/welcome.page';
 import { testUser1 } from '../src/test-data/user.data';
@@ -10,12 +11,15 @@ test.describe('Verify login', () => {
     async ({ page }) => {
       // Arrange
       const loginPage = new LoginPage(page);
-      const userEmail = testUser1.userEmail;
-      const userPassword = testUser1.userPassword;
+
+      const loginUserData: LoginUser = {
+        userEmail: testUser1.userEmail,
+        userPassword: testUser1.userPassword,
+      };
 
       // Act
       await loginPage.goto();
-      await loginPage.login(userEmail, userPassword);
+      await loginPage.loginNew(loginUserData);
 
       const welcomePage = new WelcomePage(page);
       const title = await welcomePage.title();

@@ -9,13 +9,7 @@ export class LoginPage extends BasePage {
     super(page);
   }
 
-  async login(userEmail: string, userPassword: string): Promise<void> {
-    await this.page.getByPlaceholder('Enter User Email').fill(userEmail);
-    await this.page.getByPlaceholder('Enter Password').fill(userPassword);
-    await this.page.getByRole('button', { name: 'LogIn' }).click();
-  }
-
-  async loginNew(loginUserData: LoginUser): Promise<void> {
+  async login(loginUserData: LoginUser): Promise<void> {
     await this.page
       .getByPlaceholder('Enter User Email')
       .fill(loginUserData.userEmail);

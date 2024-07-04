@@ -13,22 +13,22 @@ test.describe('Verify articles', () => {
     async ({ page }) => {
       // Arrange
       const loginPage = new LoginPage(page);
+      const articlesPage = new ArticlesPage(page);
+      const addArticlesView = new AddArticlesView(page);
+      const createArticleData = randomArticleData();
+      const articlePage = new ArticlePage(page);
+
       await loginPage.goto();
       await loginPage.login(testUser1);
-
-      const articlesPage = new ArticlesPage(page);
       await articlesPage.goto();
 
       // Act
       await articlesPage.addArticleButtonLogged.click();
-      const addArticlesView = new AddArticlesView(page);
       await expect.soft(addArticlesView.header).toBeVisible();
 
-      const createArticleData = randomArticleData();
       await addArticlesView.createArticle(createArticleData);
 
       // Assert
-      const articlePage = new ArticlePage(page);
       await expect(articlePage.articleTitle).toHaveText(
         createArticleData.articleTitle,
       );
@@ -43,21 +43,22 @@ test.describe('Verify articles', () => {
     async ({ page }) => {
       // Arrange
       const loginPage = new LoginPage(page);
-      await loginPage.goto();
-      await loginPage.login(testUser1);
-
       const articlesPage = new ArticlesPage(page);
-      await articlesPage.goto();
-
-      const expectedMessage = 'Article was not created';
-
-      // Act
-      await articlesPage.addArticleButtonLogged.click();
       const addArticlesView = new AddArticlesView(page);
-      await expect.soft(addArticlesView.header).toBeVisible();
 
       const createArticleData = randomArticleData();
       createArticleData.articleTitle = '';
+
+      const expectedMessage = 'Article was not created';
+
+      await loginPage.goto();
+      await loginPage.login(testUser1);
+      await articlesPage.goto();
+
+      // Act
+      await expect.soft(addArticlesView.header).toBeVisible();
+
+      await articlesPage.addArticleButtonLogged.click();
       await addArticlesView.createArticle(createArticleData);
 
       // Assert

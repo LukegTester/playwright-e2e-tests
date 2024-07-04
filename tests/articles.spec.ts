@@ -37,4 +37,58 @@ test.describe('Verify articles', () => {
       );
     },
   );
+  test(
+    'Verify not creating article without mandatory fields - title not provided',
+    { tag: '@GAD-R04-01' },
+    async ({ page }) => {
+      // Arrange
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.login(testUser1);
+
+      const articlesPage = new ArticlesPage(page);
+      await articlesPage.goto();
+
+      const expectedMessage = 'Article was not created';
+
+      // Act
+      await articlesPage.addArticleButtonLogged.click();
+      const addArticlesView = new AddArticlesView(page);
+      await expect.soft(addArticlesView.header).toBeVisible();
+
+      const createArticleData = randomArticleData();
+      createArticleData.articleTitle = '';
+      await addArticlesView.createArticle(createArticleData);
+
+      // Assert
+      await expect(addArticlesView.alertPopup).toHaveText(expectedMessage);
+    },
+  );
+  test(
+    'Verify not creating article without mandatory fields - body not provided',
+    { tag: '@GAD-R04-01' },
+    async ({ page }) => {
+      // Arrange
+      const loginPage = new LoginPage(page);
+      await loginPage.goto();
+      await loginPage.login(testUser1);
+
+      const articlesPage = new ArticlesPage(page);
+      await articlesPage.goto();
+
+      const expectedMessage = 'Article was not created';
+
+      // Act
+      await articlesPage.addArticleButtonLogged.click();
+      const addArticlesView = new AddArticlesView(page);
+      await expect.soft(addArticlesView.header).toBeVisible();
+
+      const createArticleData = randomArticleData();
+      createArticleData.articleBody = '';
+      await addArticlesView.createArticle(createArticleData);
+
+      // Assert
+      await expect(addArticlesView.alertPopup).toHaveText(expectedMessage);
+    },
+  );
 });

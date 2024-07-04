@@ -7,6 +7,8 @@ export class AddArticlesView {
   bodyInput = this.page.getByTestId('body-text');
   saveButton = this.page.getByTestId('save');
 
+  alertPopup = this.page.getByTestId('alert-popup');
+
   constructor(private page: Page) {}
 
   async createArticle(addArticleData: AddArticleModel): Promise<void> {

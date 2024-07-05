@@ -1,4 +1,5 @@
 import { randomArticleData } from '../src/factories/article.factory';
+import { AddArticleModel } from '../src/models/article.model';
 import { ArticlePage } from '../src/pages/article.page';
 import { ArticlesPage } from '../src/pages/articles.page';
 import { LoginPage } from '../src/pages/login.page';
@@ -7,25 +8,33 @@ import { AddArticlesView } from '../src/views/add-articles.view';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify articles', () => {
+  let loginPage: LoginPage;
+  let articlesPage: ArticlesPage;
+  let addArticlesView: AddArticlesView;
+
+  let createArticleData: AddArticleModel;
+
+  test.beforeEach(async ({ page }) => {
+    loginPage = new LoginPage(page);
+    articlesPage = new ArticlesPage(page);
+    addArticlesView = new AddArticlesView(page);
+
+    createArticleData = randomArticleData();
+
+    await loginPage.goto();
+    await loginPage.login(testUser1);
+    await articlesPage.goto();
+    await articlesPage.addArticleButtonLogged.click();
+    await expect.soft(addArticlesView.header).toBeVisible();
+  });
   test(
     'Verify creating article with mandatory fields',
     { tag: '@GAD-R04-01' },
     async ({ page }) => {
       // Arrange
-      const loginPage = new LoginPage(page);
-      const articlesPage = new ArticlesPage(page);
-      const addArticlesView = new AddArticlesView(page);
-      const createArticleData = randomArticleData();
       const articlePage = new ArticlePage(page);
 
-      await loginPage.goto();
-      await loginPage.login(testUser1);
-      await articlesPage.goto();
-
       // Act
-      await articlesPage.addArticleButtonLogged.click();
-      await expect.soft(addArticlesView.header).toBeVisible();
-
       await addArticlesView.createArticle(createArticleData);
 
       // Assert
@@ -40,25 +49,13 @@ test.describe('Verify articles', () => {
   test(
     'Verify not creating article without mandatory fields - title not provided',
     { tag: '@GAD-R04-01' },
-    async ({ page }) => {
+    async () => {
       // Arrange
-      const loginPage = new LoginPage(page);
-      const articlesPage = new ArticlesPage(page);
-      const addArticlesView = new AddArticlesView(page);
-
-      const createArticleData = randomArticleData();
-      createArticleData.articleTitle = '';
-
       const expectedMessage = 'Article was not created';
 
-      await loginPage.goto();
-      await loginPage.login(testUser1);
-      await articlesPage.goto();
+      createArticleData.articleTitle = '';
 
       // Act
-      await expect.soft(addArticlesView.header).toBeVisible();
-
-      await articlesPage.addArticleButtonLogged.click();
       await addArticlesView.createArticle(createArticleData);
 
       // Assert
@@ -68,24 +65,13 @@ test.describe('Verify articles', () => {
   test(
     'Verify not creating article without mandatory fields - body not provided',
     { tag: '@GAD-R04-01' },
-    async ({ page }) => {
+    async () => {
       // Arrange
-      const loginPage = new LoginPage(page);
-      await loginPage.goto();
-      await loginPage.login(testUser1);
-
-      const articlesPage = new ArticlesPage(page);
-      await articlesPage.goto();
-
       const expectedMessage = 'Article was not created';
 
-      // Act
-      await articlesPage.addArticleButtonLogged.click();
-      const addArticlesView = new AddArticlesView(page);
-      await expect.soft(addArticlesView.header).toBeVisible();
-
-      const createArticleData = randomArticleData();
       createArticleData.articleBody = '';
+
+      // Act
       await addArticlesView.createArticle(createArticleData);
 
       // Assert

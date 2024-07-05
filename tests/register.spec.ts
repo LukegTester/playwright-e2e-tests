@@ -1,39 +1,44 @@
 import { randomUserData } from '../src/factories/user.factory';
+import { RegisterUser } from '../src/models/user.model';
 import { LoginPage } from '../src/pages/login.page';
 import { RegisterPage } from '../src/pages/register.page';
 import { WelcomePage } from '../src/pages/welcome.page';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify register', () => {
+  let registerPage: RegisterPage;
+  let registerUserData: RegisterUser;
+  test.beforeEach(async ({ page }) => {
+    registerPage = new RegisterPage(page);
+    registerUserData = randomUserData();
+  });
   test(
     'Verify register with correct data',
     { tag: ['@GAD-R03-01', '@GAD-R03-02', '@GAD-R03-03'] },
     async ({ page }) => {
       // Arrange
-      const registerUserData = randomUserData();
-      const registerPage = new RegisterPage(page);
+      const expectedMessage = 'User created';
+
+      const loginPage = new LoginPage(page);
+      const welcomePage = new WelcomePage(page);
 
       // Act
       await page.goto(registerPage.url);
       await registerPage.register(registerUserData);
 
-      const expectedMessage = 'User created';
-
-      // Assert 1
+      // Assert
       await expect.soft(registerPage.alertPopUp).toHaveText(expectedMessage);
 
-      const loginPage = new LoginPage(page);
       await loginPage.waitForPageToLoadUrl();
       const titleLogin = await loginPage.title();
       expect(titleLogin).toContain('Login');
 
-      // Assert 2
+      // Assert test login
       await loginPage.login({
         userEmail: registerUserData.userEmail,
         userPassword: registerUserData.userPassword,
       });
 
-      const welcomePage = new WelcomePage(page);
       const titleWelcome = await welcomePage.title();
 
       expect(titleWelcome).toContain('Welcome');
@@ -42,16 +47,14 @@ test.describe('Verify register', () => {
   test(
     'Verify not register with incorrect data - not valid email',
     { tag: '@GAD-R03-04' },
-    async ({ page }) => {
+    async () => {
       // Arrange
-      const registerUserData = randomUserData();
+      const expectedErrorText = 'Please provide a valid email address';
+
       registerUserData.userEmail = '#$%1';
 
-      const expectedErrorText = 'Please provide a valid email address';
-      const registerPage = new RegisterPage(page);
-
       // Act
-      await page.goto(registerPage.url);
+      await registerPage.goto();
       await registerPage.register(registerUserData);
 
       // Assert
@@ -61,14 +64,12 @@ test.describe('Verify register', () => {
   test(
     'Verify not register with incorrect data - email not provided',
     { tag: '@GAD-R03-04' },
-    async ({ page }) => {
+    async () => {
       // Arrange
-      const registerUserData = randomUserData();
-      const registerPage = new RegisterPage(page);
       const expectedErrorText = 'This field is required';
 
       // Act
-      await page.goto(registerPage.url);
+      await registerPage.goto();
       await registerPage.userFirstNameInput.fill(
         registerUserData.userFirstName,
       );

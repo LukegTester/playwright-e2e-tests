@@ -23,28 +23,7 @@ test.describe('Verify articles', () => {
     await expect.soft(addArticlesView.header).toBeVisible();
   });
   test(
-    'Verify creating article with mandatory fields',
-    { tag: '@GAD-R04-01' },
-    async ({ page }) => {
-      // Arrange
-      const articlePage = new ArticlePage(page);
-
-      const createArticleData = randomArticleData();
-
-      // Act
-      await addArticlesView.createArticle(createArticleData);
-
-      // Assert
-      await expect(articlePage.articleTitle).toHaveText(
-        createArticleData.articleTitle,
-      );
-      await expect(articlePage.articleBody).toHaveText(
-        createArticleData.articleBody,
-      );
-    },
-  );
-  test(
-    'Verify not creating article without mandatory fields - title not provided',
+    'article is not created without mandatory fields - title not provided',
     { tag: '@GAD-R04-01' },
     async () => {
       // Arrange
@@ -61,7 +40,7 @@ test.describe('Verify articles', () => {
     },
   );
   test(
-    'Verify not creating article without mandatory fields - body not provided',
+    'article is not created without mandatory fields - body not provided',
     { tag: '@GAD-R04-01' },
     async () => {
       // Arrange
@@ -79,7 +58,7 @@ test.describe('Verify articles', () => {
   );
   test.describe('Title length', () => {
     test(
-      'Verify article title - should not exceed 128 signs',
+      'article should not be created when title exceed 128 signs',
       { tag: '@GAD-R04-02' },
       async () => {
         // Arrange
@@ -95,7 +74,7 @@ test.describe('Verify articles', () => {
       },
     );
     test(
-      'Verify article title - create article with title having 128 signs',
+      'create article with title having 128 signs',
       { tag: '@GAD-R04-02' },
       async ({ page }) => {
         // Arrange

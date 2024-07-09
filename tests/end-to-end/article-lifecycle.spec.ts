@@ -59,7 +59,7 @@ test.describe('Create and verify articles', () => {
     );
   });
 
-  test('User can delete his own article', { tag: '@GAD-R04-03' }, async () => {
+  test('User can delete his own article', { tag: '@GAD-R04-04' }, async () => {
     // Arrange
     await articlesPage.goToArticle(createArticleData.articleTitle);
 

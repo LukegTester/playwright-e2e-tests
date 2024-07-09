@@ -58,4 +58,20 @@ test.describe('Create and verify articles', () => {
       createArticleData.articleBody,
     );
   });
+
+  test('User can delete his own article', { tag: '@GAD-R04-03' }, async () => {
+    // Arrange
+    await articlesPage.goToArticle(createArticleData.articleTitle);
+
+    // Act
+    await articlePage.deleteArticle();
+
+    // Assert
+    await articlesPage.waitForPageToLoadUrl();
+    const title = await articlesPage.title();
+    expect(title).toContain('Articles');
+
+    await articlesPage.searchArticle(createArticleData.articleTitle);
+    await expect(articlesPage.noResultText).toHaveText('No data');
+  });
 });

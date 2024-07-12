@@ -10,14 +10,14 @@ test.describe('Verify login', () => {
     { tag: '@GAD-R02-01' },
     async ({ page }) => {
       // Arrange
-      const loginPage = new LoginPage(page);
       const expectedWelcomeTitle = 'Welcome';
+      const loginPage = new LoginPage(page);
+      const welcomePage = new WelcomePage(page);
 
       // Act
       await loginPage.goto();
       await loginPage.login(testUser1);
 
-      const welcomePage = new WelcomePage(page);
       const title = await welcomePage.getTitle();
 
       // Assert
@@ -29,13 +29,13 @@ test.describe('Verify login', () => {
     { tag: '@GAD-R02-01' },
     async ({ page }) => {
       // Arrange
+      const expectedLoginTitle = 'Login';
       const loginPage = new LoginPage(page);
 
       const loginUserData: LoginUserModel = {
         userEmail: testUser1.userEmail,
         userPassword: 'incorrectPassword',
       };
-      const expectedLoginTitle = 'Login';
 
       // Act
       await loginPage.goto();

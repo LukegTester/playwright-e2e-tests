@@ -61,9 +61,9 @@ test.describe('Create and verify articles', () => {
 
   test('User can delete his own article', { tag: '@GAD-R04-04' }, async () => {
     // Arrange
-    await articlesPage.goToArticle(createArticleData.articleTitle);
     const expectedArticlesTitle = 'Articles';
     const expectedTextMessage = 'No data';
+    await articlesPage.goToArticle(createArticleData.articleTitle);
 
     // Act
     await articlePage.deleteArticle();

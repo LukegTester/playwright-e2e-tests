@@ -9,6 +9,7 @@ test.describe('Verify menu main buttons', () => {
     { tag: '@GAD-R01-03' },
     async ({ page }) => {
       // Arrange
+      const expectedCommentsTitle = 'Comments';
       const articlesPage = new ArticlesPage(page);
       const commentsPage = new CommentsPage(page);
 
@@ -18,7 +19,7 @@ test.describe('Verify menu main buttons', () => {
 
       // Assert
       const title = await commentsPage.getTitle();
-      expect(title).toContain('Comments');
+      expect(title).toContain(expectedCommentsTitle);
     },
   );
   test(
@@ -26,6 +27,7 @@ test.describe('Verify menu main buttons', () => {
     { tag: '@GAD-R01-03' },
     async ({ page }) => {
       // Arrange
+      const expectedArticlesTitle = 'Articles';
       const articlesPage = new ArticlesPage(page);
       const commentsPage = new CommentsPage(page);
 
@@ -35,7 +37,7 @@ test.describe('Verify menu main buttons', () => {
 
       // Assert
       const title = await articlesPage.getTitle();
-      expect(title).toContain('Articles');
+      expect(title).toContain(expectedArticlesTitle);
     },
   );
   test(
@@ -43,6 +45,7 @@ test.describe('Verify menu main buttons', () => {
     { tag: '@GAD-R01-03' },
     async ({ page }) => {
       // Arrange
+      const expectedHomepageTitle = 'GAD';
       const articlesPage = new ArticlesPage(page);
       const homePage = new HomePage(page);
 
@@ -52,7 +55,7 @@ test.describe('Verify menu main buttons', () => {
 
       // Assert
       const title = await homePage.getTitle();
-      expect(title).toContain('GAD');
+      expect(title).toContain(expectedHomepageTitle);
     },
   );
 });

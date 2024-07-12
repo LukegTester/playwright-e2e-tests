@@ -20,7 +20,7 @@ test.describe('Verify articles', () => {
     await loginPage.login(testUser1);
     await articlesPage.goto();
     await articlesPage.addArticleButtonLogged.click();
-    await expect.soft(addArticlesView.header).toBeVisible();
+    await expect.soft(addArticlesView.addNewHeader).toBeVisible();
   });
   test(
     'article is not created without mandatory fields - title not provided',

@@ -18,6 +18,8 @@ test.describe('Verify register', () => {
     async ({ page }) => {
       // Arrange
       const expectedMessage = 'User created';
+      const expectedLoginTitle = 'Login';
+      const expectedWelcomeTitle = 'Welcome';
 
       const loginPage = new LoginPage(page);
       const welcomePage = new WelcomePage(page);
@@ -31,7 +33,7 @@ test.describe('Verify register', () => {
 
       await loginPage.waitForPageToLoadUrl();
       const titleLogin = await loginPage.getTitle();
-      expect(titleLogin).toContain('Login');
+      expect(titleLogin).toContain(expectedLoginTitle);
 
       // Assert test login
       await loginPage.login({
@@ -41,7 +43,7 @@ test.describe('Verify register', () => {
 
       const titleWelcome = await welcomePage.getTitle();
 
-      expect(titleWelcome).toContain('Welcome');
+      expect(titleWelcome).toContain(expectedWelcomeTitle);
     },
   );
   test(

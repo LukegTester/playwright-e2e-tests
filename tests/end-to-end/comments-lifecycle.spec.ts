@@ -18,12 +18,13 @@ test.describe('Create, verify and delete comment', () => {
   let createArticleData: AddArticleModel;
 
   test.beforeEach(async ({ page }) => {
+    createArticleData = prepareRandomArticle();
+
     loginPage = new LoginPage(page);
     articlesPage = new ArticlesPage(page);
     articlePage = new ArticlePage(page);
     addArticlesView = new AddArticlesView(page);
     addCommentView = new AddCommentView(page);
-    createArticleData = prepareRandomArticle();
 
     await loginPage.goto();
     await loginPage.login(testUser1);
@@ -34,11 +35,13 @@ test.describe('Create, verify and delete comment', () => {
   });
   test('create new comment', { tag: '@GAD-R04-01' }, async () => {
     // Arrange
+    const expectedNewHeaderText = 'Add New Comment';
     const createCommentData = prepareRandomComment();
     const expectedPopupMessage = 'Comment was created';
-    await articlePage.addCommentButton.click();
 
     // Act
+    await articlePage.addCommentButton.click();
+    await expect(addCommentView.addNewHeader).toHaveText(expectedNewHeaderText);
     await addCommentView.createComment(createCommentData);
 
     // Assert

@@ -1,3 +1,4 @@
+import { BASE_URL } from './src/env.config';
 import { defineConfig, devices } from '@playwright/test';
 
 /**
@@ -13,7 +14,7 @@ export default defineConfig({
   workers: undefined,
   reporter: 'html',
   use: {
-    baseURL: process.env.BASE_URL,
+    baseURL: BASE_URL,
     actionTimeout: 0,
     trace: 'on',
     video: 'retain-on-failure',

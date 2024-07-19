@@ -8,6 +8,7 @@ import { LoginPage } from '../../src/pages/login.page';
 import { testUser1 } from '../../src/test-data/user.data';
 import { AddArticlesView } from '../../src/views/add-articles.view';
 import { AddCommentView } from '../../src/views/add-comment.view';
+import { EditCommentView } from '../../src/views/edit-comment.view';
 import { expect, test } from '@playwright/test';
 
 test.describe('Create, verify and delete comment', () => {
@@ -18,6 +19,7 @@ test.describe('Create, verify and delete comment', () => {
   let addCommentView: AddCommentView;
   let createArticleData: AddArticleModel;
   let commentPage: CommentPage;
+  let editCommentView: EditCommentView;
 
   test.beforeEach(async ({ page }) => {
     createArticleData = prepareRandomArticle();
@@ -28,6 +30,7 @@ test.describe('Create, verify and delete comment', () => {
     addArticlesView = new AddArticlesView(page);
     addCommentView = new AddCommentView(page);
     commentPage = new CommentPage(page);
+    editCommentView = new EditCommentView(page);
 
     await loginPage.goto();
     await loginPage.login(testUser1);
@@ -60,5 +63,26 @@ test.describe('Create, verify and delete comment', () => {
 
     // Assert
     await expect(commentPage.commentBody).toHaveText(createCommentData.body);
+
+    // Edit comment
+    // Arrange
+    const expectedEditPopupMessage = 'Comment was updated';
+    const editCommentData = prepareRandomComment();
+
+    // Act
+    await commentPage.editIcon.click();
+    await editCommentView.editComment(editCommentData);
+
+    // Assert
+    await expect
+      .soft(commentPage.alertPopup)
+      .toHaveText(expectedEditPopupMessage);
+    await expect(commentPage.commentBody).toHaveText(editCommentData.body);
+
+    await commentPage.returnLink.click();
+    const updatedArticleComment = articlePage.getArticleComment(
+      editCommentData.body,
+    );
+    await expect(updatedArticleComment.body).toHaveText(editCommentData.body);
   });
 });

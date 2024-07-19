@@ -7,8 +7,10 @@ export class CommentPage extends BasePage {
   mainMenu = new MainMenuComponent(this.page);
   commentBody = this.page.getByTestId('comment-body');
   deleteIcon = this.page.getByTestId('delete');
+  editIcon = this.page.getByTestId('edit');
+  returnLink = this.page.getByTestId('return');
 
-  //alertPopup = this.page.getByTestId('alert-popup');
+  alertPopup = this.page.getByTestId('alert-popup');
   constructor(page: Page) {
     super(page);
   }

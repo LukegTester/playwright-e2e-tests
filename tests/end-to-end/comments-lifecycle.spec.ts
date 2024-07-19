@@ -53,14 +53,12 @@ test.describe('Create, verify and delete comment', () => {
     // Verify comment
     // Act
     const articleComment = articlePage.getArticleComment(
-      createCommentData.commentBody,
+      createCommentData.body,
     );
-    await expect(articleComment.body).toHaveText(createCommentData.commentBody);
+    await expect(articleComment.body).toHaveText(createCommentData.body);
     await articleComment.link.click();
 
-    // Asser
-    await expect(commentPage.commentBody).toHaveText(
-      createCommentData.commentBody,
-    );
+    // Assert
+    await expect(commentPage.commentBody).toHaveText(createCommentData.body);
   });
 });

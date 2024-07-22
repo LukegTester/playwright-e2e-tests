@@ -1,6 +1,7 @@
 import { prepareRandomArticle } from '../../src/factories/article.factory';
 import { prepareRandomComment } from '../../src/factories/comment.factory';
 import { AddArticleModel } from '../../src/models/article.model';
+import { AddCommentModel } from '../../src/models/comment.model';
 import { ArticlePage } from '../../src/pages/article.page';
 import { ArticlesPage } from '../../src/pages/articles.page';
 import { CommentPage } from '../../src/pages/comment.page';
@@ -39,50 +40,62 @@ test.describe('Create, verify and delete comment', () => {
     await articlesPage.addArticleButtonLogged.click();
     await addArticlesView.createArticle(createArticleData);
   });
-  test('create new comment', { tag: '@GAD-R04-01' }, async () => {
-    // Arrange
-    const expectedNewHeaderText = 'Add New Comment';
+  test('operate new comment', { tag: '@GAD-R04-01' }, async () => {
     const createCommentData = prepareRandomComment();
-    const expectedPopupMessage = 'Comment was created';
 
-    // Act
-    await articlePage.addCommentButton.click();
-    await expect(addCommentView.addNewHeader).toHaveText(expectedNewHeaderText);
-    await addCommentView.createComment(createCommentData);
+    await test.step('create new comment', async () => {
+      // Arrange
+      const expectedNewHeaderText = 'Add New Comment';
+      const expectedCreatePopup = 'Comment was created';
 
-    // Assert
-    await expect(articlePage.alertPopup).toHaveText(expectedPopupMessage);
+      // Act
+      await articlePage.addCommentButton.click();
+      await expect
+        .soft(addCommentView.addNewHeader)
+        .toHaveText(expectedNewHeaderText);
 
-    // Verify comment
-    // Act
-    const articleComment = articlePage.getArticleComment(
-      createCommentData.body,
-    );
-    await expect(articleComment.body).toHaveText(createCommentData.body);
-    await articleComment.link.click();
+      await addCommentView.createComment(createCommentData);
 
-    // Assert
-    await expect(commentPage.commentBody).toHaveText(createCommentData.body);
+      // Assert
+      await expect.soft(articlePage.alertPopup).toHaveText(expectedCreatePopup);
+    });
 
-    // Edit comment
-    // Arrange
-    const expectedEditPopupMessage = 'Comment was updated';
-    const editCommentData = prepareRandomComment();
+    await test.step('verify created comment', async () => {
+      // Act
+      const articleComment = articlePage.getArticleComment(
+        createCommentData.body,
+      );
+      await expect.soft(articleComment.body).toHaveText(createCommentData.body);
+      await articleComment.link.click();
 
-    // Act
-    await commentPage.editIcon.click();
-    await editCommentView.editComment(editCommentData);
+      // Assert
+      await expect(commentPage.commentBody).toHaveText(createCommentData.body);
+    });
 
-    // Assert
-    await expect
-      .soft(commentPage.alertPopup)
-      .toHaveText(expectedEditPopupMessage);
-    await expect(commentPage.commentBody).toHaveText(editCommentData.body);
+    let editCommentData: AddCommentModel;
+    await test.step('edit comment', async () => {
+      // Arrange
+      const expectedEditPopup = 'Comment was updated';
+      editCommentData = prepareRandomComment();
 
-    await commentPage.returnLink.click();
-    const updatedArticleComment = articlePage.getArticleComment(
-      editCommentData.body,
-    );
-    await expect(updatedArticleComment.body).toHaveText(editCommentData.body);
+      // Act
+      await commentPage.editIcon.click();
+      await editCommentView.editComment(editCommentData);
+
+      // Assert
+      await expect.soft(commentPage.alertPopup).toHaveText(expectedEditPopup);
+      await expect(commentPage.commentBody).toHaveText(editCommentData.body);
+    });
+
+    await test.step('verify updated comment', async () => {
+      // Act
+      await commentPage.returnLink.click();
+      const updatedArticleComment = articlePage.getArticleComment(
+        editCommentData.body,
+      );
+
+      // Assert
+      await expect(updatedArticleComment.body).toHaveText(editCommentData.body);
+    });
   });
 });

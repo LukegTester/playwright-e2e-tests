@@ -40,10 +40,10 @@ test.describe('Create, verify and delete comment', () => {
     await articlesPage.addArticleButtonLogged.click();
     await addArticlesView.createArticle(createArticleData);
   });
-  test('operate new comment', { tag: '@GAD-R04-01' }, async () => {
+  test('operate new comment', { tag: '@GAD-R05' }, async () => {
     const createCommentData = prepareRandomComment();
 
-    await test.step('create new comment', async () => {
+    await test.step('create new comment @GAD-R05-02', async () => {
       // Arrange
       const expectedNewHeaderText = 'Add New Comment';
       const expectedCreatePopup = 'Comment was created';
@@ -60,7 +60,7 @@ test.describe('Create, verify and delete comment', () => {
       await expect.soft(articlePage.alertPopup).toHaveText(expectedCreatePopup);
     });
 
-    await test.step('verify created comment', async () => {
+    await test.step('verify created comment @GAD-R05-01', async () => {
       // Act
       const articleComment = articlePage.getArticleComment(
         createCommentData.body,
@@ -73,7 +73,7 @@ test.describe('Create, verify and delete comment', () => {
     });
 
     let editCommentData: AddCommentModel;
-    await test.step('edit comment', async () => {
+    await test.step('edit comment @GAD-R05-02', async () => {
       // Arrange
       const expectedEditPopup = 'Comment was updated';
       editCommentData = prepareRandomComment();
@@ -87,7 +87,7 @@ test.describe('Create, verify and delete comment', () => {
       await expect(commentPage.commentBody).toHaveText(editCommentData.body);
     });
 
-    await test.step('verify updated comment', async () => {
+    await test.step('verify updated comment @GAD-R05-01', async () => {
       // Act
       await commentPage.returnLink.click();
       const updatedArticleComment = articlePage.getArticleComment(
@@ -96,6 +96,31 @@ test.describe('Create, verify and delete comment', () => {
 
       // Assert
       await expect(updatedArticleComment.body).toHaveText(editCommentData.body);
+    });
+    await test.step('create and verify second comment @GAD-R05-03', async () => {
+      // Arrange
+      const secondCommentData = prepareRandomComment();
+      const expectedNewHeaderText = 'Add New Comment';
+      const expectedCreatePopup = 'Comment was created';
+
+      // Act
+      await articlePage.addCommentButton.click();
+      await expect
+        .soft(addCommentView.addNewHeader)
+        .toHaveText(expectedNewHeaderText);
+
+      await addCommentView.createComment(secondCommentData);
+
+      // Assert
+      await expect.soft(articlePage.alertPopup).toHaveText(expectedCreatePopup);
+
+      const articleComment = articlePage.getArticleComment(
+        secondCommentData.body,
+      );
+      await expect.soft(articleComment.body).toHaveText(secondCommentData.body);
+
+      await articleComment.link.click();
+      await expect(commentPage.commentBody).toHaveText(secondCommentData.body);
     });
   });
 });

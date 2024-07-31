@@ -20,5 +20,12 @@
     "no-console": "warn",
     "playwright/no-nested-step": "off",
     "prettier/prettier": "warn"
+  },
+  "settings": {
+    "playwright": {
+      "globalAliases": {
+        "test": ["setup"]
+      }
+    }
   }
 }

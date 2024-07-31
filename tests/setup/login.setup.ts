@@ -1,4 +1,3 @@
-/* eslint-disable playwright/no-standalone-expect */
 import { LoginPage } from '../../src/pages/login.page';
 import { WelcomePage } from '../../src/pages/welcome.page';
 import { testUser1 } from '../../src/test-data/user.data';

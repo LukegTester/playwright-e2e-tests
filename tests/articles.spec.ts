@@ -24,7 +24,7 @@ test.describe('Verify articles', () => {
   });
   test(
     'article is not created without mandatory fields - title not provided',
-    { tag: '@GAD-R04-01' },
+    { tag: ['@GAD-R04-01', '@logged'] },
     async () => {
       // Arrange
       const expectedMessage = 'Article was not created';

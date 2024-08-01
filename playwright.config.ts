@@ -1,9 +1,13 @@
 import { BASE_URL } from './src/env.config';
 import { defineConfig, devices } from '@playwright/test';
+import * as path from 'path';
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+
+export const STORAGE_STATE = path.join(__dirname, 'tmp/session.json');
+
 export default defineConfig({
   testDir: './tests',
   globalSetup: 'src/global-setup.ts',
@@ -34,6 +38,9 @@ export default defineConfig({
       name: 'logged',
       grep: /@logged/,
       dependencies: ['setup'],
+      use: {
+        storageState: STORAGE_STATE,
+      },
     },
   ],
 });

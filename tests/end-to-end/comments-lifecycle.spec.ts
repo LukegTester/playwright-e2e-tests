@@ -5,15 +5,12 @@ import { AddCommentModel } from '../../src/models/comment.model';
 import { ArticlePage } from '../../src/pages/article.page';
 import { ArticlesPage } from '../../src/pages/articles.page';
 import { CommentPage } from '../../src/pages/comment.page';
-import { LoginPage } from '../../src/pages/login.page';
-import { testUser1 } from '../../src/test-data/user.data';
 import { AddArticlesView } from '../../src/views/add-articles.view';
 import { AddCommentView } from '../../src/views/add-comment.view';
 import { EditCommentView } from '../../src/views/edit-comment.view';
 import { expect, test } from '@playwright/test';
 
 test.describe('Create, verify and delete comment', () => {
-  let loginPage: LoginPage;
   let articlesPage: ArticlesPage;
   let addArticlesView: AddArticlesView;
   let articlePage: ArticlePage;
@@ -25,16 +22,12 @@ test.describe('Create, verify and delete comment', () => {
   test.beforeEach(async ({ page }) => {
     createArticleData = prepareRandomArticle();
 
-    loginPage = new LoginPage(page);
     articlesPage = new ArticlesPage(page);
     articlePage = new ArticlePage(page);
     addArticlesView = new AddArticlesView(page);
     addCommentView = new AddCommentView(page);
     commentPage = new CommentPage(page);
     editCommentView = new EditCommentView(page);
-
-    await loginPage.goto();
-    await loginPage.login(testUser1);
 
     await articlesPage.goto();
     await articlesPage.addArticleButtonLogged.click();
@@ -43,7 +36,7 @@ test.describe('Create, verify and delete comment', () => {
 
   test(
     'operate on comment',
-    { tag: ['@GAD-R05-1', '@GAD-R05-2'] },
+    { tag: ['@GAD-R05-1', '@GAD-R05-2', '@logged'] },
     async () => {
       const createCommentData = prepareRandomComment();
 
@@ -114,7 +107,7 @@ test.describe('Create, verify and delete comment', () => {
 
   test(
     'user can add more then one comment to article',
-    { tag: '@GAD-R05-3' },
+    { tag: ['@GAD-R05-3', '@logged'] },
     async () => {
       await test.step('create new comment', async () => {
         // Arrange

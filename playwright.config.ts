@@ -1,4 +1,4 @@
-import { BASE_URL } from './src/env.config';
+import { BASE_URL } from '@_src/env.config';
 import { defineConfig, devices } from '@playwright/test';
 import * as path from 'path';
 

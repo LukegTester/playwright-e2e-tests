@@ -1,5 +1,5 @@
-import { BasePage } from './base.page';
 import { MainMenuComponent } from '@_src/components/main-menu.components';
+import { BasePage } from '@_src/pages/base.page';
 import { Page } from '@playwright/test';
 
 export class ArticlesPage extends BasePage {

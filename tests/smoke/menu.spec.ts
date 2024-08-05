@@ -1,6 +1,5 @@
 import { ArticlesPage } from '@_src/pages/articles.page';
 import { CommentsPage } from '@_src/pages/comments.page';
-import { HomePage } from '@_src/pages/home.page';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify menu main buttons', () => {
@@ -11,14 +10,13 @@ test.describe('Verify menu main buttons', () => {
       // Arrange
       const expectedCommentsTitle = 'Comments';
       const articlesPage = new ArticlesPage(page);
-      const commentsPage = new CommentsPage(page);
 
       // Act
       await articlesPage.goto();
-      await commentsPage.mainMenu.commentsButton.click();
+      const commentsPage = await articlesPage.mainMenu.clickCommentsButton();
+      const title = await commentsPage.getTitle();
 
       // Assert
-      const title = await commentsPage.getTitle();
       expect(title).toContain(expectedCommentsTitle);
     },
   );
@@ -28,15 +26,14 @@ test.describe('Verify menu main buttons', () => {
     async ({ page }) => {
       // Arrange
       const expectedArticlesTitle = 'Articles';
-      const articlesPage = new ArticlesPage(page);
       const commentsPage = new CommentsPage(page);
 
       // Act
       await commentsPage.goto();
-      await articlesPage.mainMenu.articlesButton.click();
+      const articlesPage = await commentsPage.mainMenu.clickArticlesButton();
+      const title = await articlesPage.getTitle();
 
       // Assert
-      const title = await articlesPage.getTitle();
       expect(title).toContain(expectedArticlesTitle);
     },
   );
@@ -47,14 +44,13 @@ test.describe('Verify menu main buttons', () => {
       // Arrange
       const expectedHomepageTitle = 'GAD';
       const articlesPage = new ArticlesPage(page);
-      const homePage = new HomePage(page);
 
       // Act
       await articlesPage.goto();
-      await articlesPage.mainMenu.homePage.click();
+      const homePage = await articlesPage.mainMenu.clickHomePageButton();
+      const title = await homePage.getTitle();
 
       // Assert
-      const title = await homePage.getTitle();
       expect(title).toContain(expectedHomepageTitle);
     },
   );

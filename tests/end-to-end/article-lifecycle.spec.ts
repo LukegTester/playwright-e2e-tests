@@ -2,19 +2,16 @@ import { prepareRandomArticle } from '@_src/factories/article.factory';
 import { AddArticleModel } from '@_src/models/article.model';
 import { ArticlePage } from '@_src/pages/article.page';
 import { ArticlesPage } from '@_src/pages/articles.page';
-import { AddArticlesView } from '@_src/views/add-articles.view';
 import { expect, test } from '@playwright/test';
 
 test.describe.configure({ mode: 'serial' });
 test.describe('Create and verify articles', () => {
   let articlesPage: ArticlesPage;
-  let addArticlesView: AddArticlesView;
   let articlePage: ArticlePage;
   let articleData: AddArticleModel;
 
   test.beforeEach(async ({ page }) => {
     articlesPage = new ArticlesPage(page);
-    addArticlesView = new AddArticlesView(page);
     articlePage = new ArticlePage(page);
 
     await articlesPage.goto();
@@ -27,7 +24,7 @@ test.describe('Create and verify articles', () => {
       articleData = prepareRandomArticle();
 
       // Act
-      await articlesPage.addArticleButtonLogged.click();
+      const addArticlesView = await articlesPage.clickAddArticleButtonLogged();
       await expect.soft(addArticlesView.addNewHeader).toBeVisible();
       await addArticlesView.createArticle(articleData);
 
@@ -43,7 +40,9 @@ test.describe('Create and verify articles', () => {
     { tag: ['@GAD-R04-03', '@logged'] },
     async () => {
       // Act
-      await articlesPage.goToArticle(articleData.articleTitle);
+      const articlePage = await articlesPage.goToArticle(
+        articleData.articleTitle,
+      );
 
       // Assert
       await expect(articlePage.articleTitle).toHaveText(
@@ -60,7 +59,7 @@ test.describe('Create and verify articles', () => {
       // Arrange
       const expectedArticlesTitle = 'Articles';
       const expectedTextMessage = 'No data';
-      await articlesPage.goToArticle(articleData.articleTitle);
+      articlePage = await articlesPage.goToArticle(articleData.articleTitle);
 
       // Act
       articlesPage = await articlePage.deleteArticle();

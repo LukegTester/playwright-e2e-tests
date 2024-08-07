@@ -4,13 +4,11 @@ import { AddArticleModel } from '@_src/models/article.model';
 import { AddCommentModel } from '@_src/models/comment.model';
 import { ArticlePage } from '@_src/pages/article.page';
 import { ArticlesPage } from '@_src/pages/articles.page';
-import { AddArticlesView } from '@_src/views/add-articles.view';
 import { EditCommentView } from '@_src/views/edit-comment.view';
 import { expect, test } from '@playwright/test';
 
 test.describe('Create, verify and delete comment', () => {
   let articlesPage: ArticlesPage;
-  let addArticlesView: AddArticlesView;
   let articlePage: ArticlePage;
   let createArticleData: AddArticleModel;
   let editCommentView: EditCommentView;
@@ -20,11 +18,10 @@ test.describe('Create, verify and delete comment', () => {
 
     articlesPage = new ArticlesPage(page);
     articlePage = new ArticlePage(page);
-    addArticlesView = new AddArticlesView(page);
     editCommentView = new EditCommentView(page);
 
     await articlesPage.goto();
-    await articlesPage.addArticleButtonLogged.click();
+    const addArticlesView = await articlesPage.clickAddArticleButtonLogged();
     await addArticlesView.createArticle(createArticleData);
   });
 

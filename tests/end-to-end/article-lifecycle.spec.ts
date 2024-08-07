@@ -10,7 +10,7 @@ test.describe('Create and verify articles', () => {
   let articlesPage: ArticlesPage;
   let addArticlesView: AddArticlesView;
   let articlePage: ArticlePage;
-  let createArticleData: AddArticleModel;
+  let articleData: AddArticleModel;
 
   test.beforeEach(async ({ page }) => {
     articlesPage = new ArticlesPage(page);
@@ -24,20 +24,18 @@ test.describe('Create and verify articles', () => {
     { tag: ['@GAD-R04-01', '@logged'] },
     async () => {
       // Arrange
-      createArticleData = prepareRandomArticle();
+      articleData = prepareRandomArticle();
 
       // Act
       await articlesPage.addArticleButtonLogged.click();
       await expect.soft(addArticlesView.addNewHeader).toBeVisible();
-      await addArticlesView.createArticle(createArticleData);
+      await addArticlesView.createArticle(articleData);
 
       // Assert
       await expect(articlePage.articleTitle).toHaveText(
-        createArticleData.articleTitle,
+        articleData.articleTitle,
       );
-      await expect(articlePage.articleBody).toHaveText(
-        createArticleData.articleBody,
-      );
+      await expect(articlePage.articleBody).toHaveText(articleData.articleBody);
     },
   );
   test(
@@ -45,15 +43,13 @@ test.describe('Create and verify articles', () => {
     { tag: ['@GAD-R04-03', '@logged'] },
     async () => {
       // Act
-      await articlesPage.goToArticle(createArticleData.articleTitle);
+      await articlesPage.goToArticle(articleData.articleTitle);
 
       // Assert
       await expect(articlePage.articleTitle).toHaveText(
-        createArticleData.articleTitle,
+        articleData.articleTitle,
       );
-      await expect(articlePage.articleBody).toHaveText(
-        createArticleData.articleBody,
-      );
+      await expect(articlePage.articleBody).toHaveText(articleData.articleBody);
     },
   );
 
@@ -64,17 +60,17 @@ test.describe('Create and verify articles', () => {
       // Arrange
       const expectedArticlesTitle = 'Articles';
       const expectedTextMessage = 'No data';
-      await articlesPage.goToArticle(createArticleData.articleTitle);
+      await articlesPage.goToArticle(articleData.articleTitle);
 
       // Act
-      await articlePage.deleteArticle();
+      articlesPage = await articlePage.deleteArticle();
 
       // Assert
       await articlesPage.waitForPageToLoadUrl();
       const title = await articlesPage.getTitle();
       expect(title).toContain(expectedArticlesTitle);
 
-      await articlesPage.searchArticle(createArticleData.articleTitle);
+      await articlesPage.searchArticle(articleData.articleTitle);
       await expect(articlesPage.noResultText).toHaveText(expectedTextMessage);
     },
   );

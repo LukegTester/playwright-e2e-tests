@@ -1,5 +1,4 @@
 import { prepareRandomArticle } from '@_src/factories/article.factory';
-import { ArticlePage } from '@_src/pages/article.page';
 import { ArticlesPage } from '@_src/pages/articles.page';
 import { AddArticlesView } from '@_src/views/add-articles.view';
 import { expect, test } from '@playwright/test';
@@ -69,14 +68,13 @@ test.describe('Verify articles', () => {
     test(
       'create article with title having 128 signs',
       { tag: ['@GAD-R04-02', '@logged'] },
-      async ({ page }) => {
+      async () => {
         // Arrange
-        const articlePage = new ArticlePage(page);
-
         const createArticleData = prepareRandomArticle(128);
 
         // Act
-        await addArticlesView.createArticle(createArticleData);
+        const articlePage =
+          await addArticlesView.createArticle(createArticleData);
 
         // Assert
         await expect(articlePage.articleTitle).toHaveText(

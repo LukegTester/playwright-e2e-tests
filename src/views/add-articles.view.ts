@@ -1,4 +1,5 @@
 import { AddArticleModel } from '@_src/models/article.model';
+import { ArticlePage } from '@_src/pages/article.page';
 import { Page } from '@playwright/test';
 
 export class AddArticlesView {
@@ -11,9 +12,10 @@ export class AddArticlesView {
 
   constructor(private page: Page) {}
 
-  async createArticle(addArticleData: AddArticleModel): Promise<void> {
+  async createArticle(addArticleData: AddArticleModel): Promise<ArticlePage> {
     await this.titleInput.fill(addArticleData.articleTitle);
     await this.bodyInput.fill(addArticleData.articleBody);
     await this.saveButton.click();
+    return new ArticlePage(this.page);
   }
 }

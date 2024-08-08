@@ -7,14 +7,12 @@ import { ArticlesPage } from '@_src/pages/articles.page';
 import { expect, test } from '@playwright/test';
 
 test.describe('Create, verify and delete comment', () => {
-  let articlesPage: ArticlesPage;
   let articlePage: ArticlePage;
   let createArticleData: AddArticleModel;
 
   test.beforeEach(async ({ page }) => {
+    const articlesPage = new ArticlesPage(page);
     createArticleData = prepareRandomArticle();
-
-    articlesPage = new ArticlesPage(page);
 
     await articlesPage.goto();
     const addArticlesView = await articlesPage.clickAddArticleButtonLogged();

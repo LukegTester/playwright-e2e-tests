@@ -1,4 +1,5 @@
 import { AddCommentModel } from '@_src/models/comment.model';
+import { CommentPage } from '@_src/pages/comment.page';
 import { Page } from '@playwright/test';
 
 export class EditCommentView {
@@ -7,8 +8,9 @@ export class EditCommentView {
 
   constructor(private page: Page) {}
 
-  async editComment(editCommentData: AddCommentModel): Promise<void> {
+  async editComment(editCommentData: AddCommentModel): Promise<CommentPage> {
     await this.bodyInput.fill(editCommentData.body);
     await this.updateButton.click();
+    return new CommentPage(this.page);
   }
 }

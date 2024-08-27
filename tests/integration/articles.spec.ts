@@ -73,16 +73,11 @@ test.describe('Verify articles', () => {
         const createArticleData = prepareRandomArticle(128);
 
         // Act
-        const articlePage =
-          await addArticlesView.createArticle(createArticleData);
+        const articlePage = await addArticlesView.createArticle(createArticleData);
 
         // Assert
-        await expect(articlePage.articleTitle).toHaveText(
-          createArticleData.articleTitle,
-        );
-        await expect(articlePage.articleBody).toHaveText(
-          createArticleData.articleBody,
-        );
+        await expect(articlePage.articleTitle).toHaveText(createArticleData.articleTitle);
+        await expect(articlePage.articleBody).toHaveText(createArticleData.articleBody);
       },
     );
   });

@@ -19,7 +19,8 @@
     "@typescript-eslint/explicit-function-return-type": "error",
     "no-console": "warn",
     "playwright/no-nested-step": "off",
-    "prettier/prettier": "warn"
+    "prettier/prettier": "warn",
+    "max-len": [1, { "code": 100 }]
   },
   "settings": {
     "playwright": {

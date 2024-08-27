@@ -1,21 +1,16 @@
 import { prepareRandomArticle } from '@_src/factories/article.factory';
 import { prepareRandomComment } from '@_src/factories/comment.factory';
+import { expect, test } from '@_src/fixtures/merge.fixtures';
 import { AddArticleModel } from '@_src/models/article.model';
 import { AddCommentModel } from '@_src/models/comment.model';
 import { ArticlePage } from '@_src/pages/article.page';
-import { ArticlesPage } from '@_src/pages/articles.page';
-import { expect, test } from '@playwright/test';
 
 test.describe('Create, verify and delete comment', () => {
-  let articlePage: ArticlePage;
   let createArticleData: AddArticleModel;
+  let articlePage: ArticlePage;
 
-  test.beforeEach(async ({ page }) => {
-    const articlesPage = new ArticlesPage(page);
+  test.beforeEach(async ({ addArticlesView }) => {
     createArticleData = prepareRandomArticle();
-
-    await articlesPage.goto();
-    const addArticlesView = await articlesPage.clickAddArticleButtonLogged();
     articlePage = await addArticlesView.createArticle(createArticleData);
   });
 

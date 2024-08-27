@@ -65,7 +65,9 @@ test.describe('Verify register', () => {
 
       // Act
 
-      await registerPage.userFirstNameInput.fill(registerUserData.userFirstName);
+      await registerPage.userFirstNameInput.fill(
+        registerUserData.userFirstName,
+      );
       await registerPage.userLastNameInput.fill(registerUserData.userLastName);
       await registerPage.userPasswordInput.fill(registerUserData.userPassword);
       await registerPage.registerButton.click();

@@ -37,7 +37,9 @@ export class ArticlePage extends BasePage {
     return new ArticlesPage(this.page);
   }
   getArticleComment(body: string): ArticleComment {
-    const commentContainer = this.page.locator('.comment-container').filter({ hasText: body });
+    const commentContainer = this.page
+      .locator('.comment-container')
+      .filter({ hasText: body });
 
     return {
       body: commentContainer.locator(':text("comment:") + span'),
@@ -45,7 +47,9 @@ export class ArticlePage extends BasePage {
     };
   }
 
-  async clickCommentLink(commentContainer: ArticleComment): Promise<CommentPage> {
+  async clickCommentLink(
+    commentContainer: ArticleComment,
+  ): Promise<CommentPage> {
     await commentContainer.link.click();
     return new CommentPage(this.page);
   }

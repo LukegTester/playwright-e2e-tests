@@ -5,6 +5,5 @@
   "semi": true,
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
-  "plugins": ["@trivago/prettier-plugin-sort-imports"],
-  "printWidth": 100
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }

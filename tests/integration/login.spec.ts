@@ -4,19 +4,23 @@ import { testUser1 } from '@_src/test-data/user.data';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify login', () => {
-  test('Verify login with correct credentials', { tag: '@GAD-R02-01' }, async ({ page }) => {
-    // Arrange
-    const expectedWelcomeTitle = 'Welcome';
-    const loginPage = new LoginPage(page);
+  test(
+    'Verify login with correct credentials',
+    { tag: '@GAD-R02-01' },
+    async ({ page }) => {
+      // Arrange
+      const expectedWelcomeTitle = 'Welcome';
+      const loginPage = new LoginPage(page);
 
-    // Act
-    await loginPage.goto();
-    const welcomePage = await loginPage.login(testUser1);
-    const welcomeTitle = await welcomePage.getTitle();
+      // Act
+      await loginPage.goto();
+      const welcomePage = await loginPage.login(testUser1);
+      const welcomeTitle = await welcomePage.getTitle();
 
-    // Assert
-    expect(welcomeTitle).toContain(expectedWelcomeTitle);
-  });
+      // Assert
+      expect(welcomeTitle).toContain(expectedWelcomeTitle);
+    },
+  );
   test(
     'Reject login with incorrect credentials - password',
     { tag: '@GAD-R02-01' },

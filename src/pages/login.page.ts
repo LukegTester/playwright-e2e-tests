@@ -11,8 +11,12 @@ export class LoginPage extends BasePage {
   }
 
   async login(loginUserData: LoginUserModel): Promise<WelcomePage> {
-    await this.page.getByPlaceholder('Enter User Email').fill(loginUserData.userEmail);
-    await this.page.getByPlaceholder('Enter Password').fill(loginUserData.userPassword);
+    await this.page
+      .getByPlaceholder('Enter User Email')
+      .fill(loginUserData.userEmail);
+    await this.page
+      .getByPlaceholder('Enter Password')
+      .fill(loginUserData.userPassword);
     await this.page.getByRole('button', { name: 'LogIn' }).click();
 
     return new WelcomePage(this.page);

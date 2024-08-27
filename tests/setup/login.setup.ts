@@ -1,15 +1,12 @@
 import { STORAGE_STATE } from '@_pw-config';
-import { LoginPage } from '@_src/pages/login.page';
 import { testUser1 } from '@_src/test-data/user.data';
-import { expect, test as setup } from '@playwright/test';
+import { expect, test as setup } from '@_src/fixtures/merge.fixtures';
 
-setup('login and save session', { tag: '@GAD-R02-01' }, async ({ page }) => {
+setup('login and save session', { tag: '@GAD-R02-01' }, async ({ loginPage, page }) => {
   // Arrange
   const expectedWelcomeTitle = 'Welcome';
-  const loginPage = new LoginPage(page);
 
   // Act
-  await loginPage.goto();
   const welcomePage = await loginPage.login(testUser1);
 
   const title = await welcomePage.getTitle();

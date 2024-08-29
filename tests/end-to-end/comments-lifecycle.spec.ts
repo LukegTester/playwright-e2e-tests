@@ -1,24 +1,14 @@
-import { prepareRandomArticle } from '@_src/factories/article.factory';
 import { prepareRandomComment } from '@_src/factories/comment.factory';
 import { expect, test } from '@_src/fixtures/merge.fixtures';
-import { AddArticleModel } from '@_src/models/article.model';
 import { AddCommentModel } from '@_src/models/comment.model';
-import { ArticlePage } from '@_src/pages/article.page';
 
 test.describe('Create, verify and delete comment', () => {
-  let createArticleData: AddArticleModel;
-  let articlePage: ArticlePage;
-
-  test.beforeEach(async ({ addArticlesView }) => {
-    createArticleData = prepareRandomArticle();
-    articlePage = await addArticlesView.createArticle(createArticleData);
-  });
-
   test(
     'operate on comment',
     { tag: ['@GAD-R05-1', '@GAD-R05-2', '@logged'] },
-    async () => {
+    async ({ createRandomArticle }) => {
       const createCommentData = prepareRandomComment();
+      let articlePage = createRandomArticle.articlePage;
 
       await test.step('create new comment', async () => {
         // Arrange
@@ -89,7 +79,8 @@ test.describe('Create, verify and delete comment', () => {
   test(
     'user can add more then one comment to article',
     { tag: ['@GAD-R05-3', '@logged'] },
-    async () => {
+    async ({ createRandomArticle }) => {
+      let articlePage = createRandomArticle.articlePage;
       await test.step('create new comment', async () => {
         // Arrange
         const createCommentData = prepareRandomComment();

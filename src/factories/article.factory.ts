@@ -11,10 +11,10 @@ export function prepareRandomArticle(
   else articleTitle = faker.lorem.sentence();
 
   const articleBody = faker.lorem.paragraph(bodyParagraphs);
-  const createArticleData: AddArticleModel = {
+  const articleData: AddArticleModel = {
     articleTitle: articleTitle,
     articleBody: articleBody,
   };
 
-  return createArticleData;
+  return articleData;
 }

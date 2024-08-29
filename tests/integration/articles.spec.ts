@@ -9,11 +9,11 @@ test.describe('Verify articles', () => {
       // Arrange
       const expectedMessage = 'Article was not created';
 
-      const createArticleData = prepareRandomArticle();
-      createArticleData.articleTitle = '';
+      const articleData = prepareRandomArticle();
+      articleData.articleTitle = '';
 
       // Act
-      await addArticlesView.createArticle(createArticleData);
+      await addArticlesView.createArticle(articleData);
 
       // Assert
       await expect(addArticlesView.alertPopup).toHaveText(expectedMessage);
@@ -26,11 +26,11 @@ test.describe('Verify articles', () => {
       // Arrange
       const expectedMessage = 'Article was not created';
 
-      const createArticleData = prepareRandomArticle();
-      createArticleData.articleBody = '';
+      const articleData = prepareRandomArticle();
+      articleData.articleBody = '';
 
       // Act
-      await addArticlesView.createArticle(createArticleData);
+      await addArticlesView.createArticle(articleData);
 
       // Assert
       await expect(addArticlesView.alertPopup).toHaveText(expectedMessage);
@@ -44,10 +44,10 @@ test.describe('Verify articles', () => {
         // Arrange
         const expectedMessage = 'Article was not created';
 
-        const createArticleData = prepareRandomArticle(129);
+        const articleData = prepareRandomArticle(129);
 
         // Act
-        await addArticlesView.createArticle(createArticleData);
+        await addArticlesView.createArticle(articleData);
 
         // Assert
         await expect(addArticlesView.alertPopup).toHaveText(expectedMessage);
@@ -58,18 +58,17 @@ test.describe('Verify articles', () => {
       { tag: ['@GAD-R04-02', '@logged'] },
       async ({ addArticlesView }) => {
         // Arrange
-        const createArticleData = prepareRandomArticle(128);
+        const articleData = prepareRandomArticle(128);
 
         // Act
-        const articlePage =
-          await addArticlesView.createArticle(createArticleData);
+        const articlePage = await addArticlesView.createArticle(articleData);
 
         // Assert
         await expect(articlePage.articleTitle).toHaveText(
-          createArticleData.articleTitle,
+          articleData.articleTitle,
         );
         await expect(articlePage.articleBody).toHaveText(
-          createArticleData.articleBody,
+          articleData.articleBody,
         );
       },
     );

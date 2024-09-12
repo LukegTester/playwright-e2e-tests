@@ -9,7 +9,7 @@ export class ArticlesPage extends BasePage {
   mainMenu = new MainMenuComponent(this.page);
   addArticleButtonLogged = this.page.locator('#add-new');
   searchInput = this.page.getByTestId('search-input');
-  searchButton = this.page.getByTestId('search-button');
+  goSearchButton = this.page.getByTestId('search-button');
   noResultText = this.page.getByTestId('no-results');
 
   constructor(page: Page) {
@@ -23,7 +23,7 @@ export class ArticlesPage extends BasePage {
 
   async searchArticle(phrase: string): Promise<ArticlesPage> {
     await this.searchInput.fill(phrase);
-    await this.searchButton.click();
+    await this.goSearchButton.click();
     return this;
   }
 

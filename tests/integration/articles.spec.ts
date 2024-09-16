@@ -1,3 +1,4 @@
+import { RESPONSE_TIMEOUT } from '@_pw-config';
 import { prepareRandomArticle } from '@_src/factories/article.factory';
 import { expect, test } from '@_src/fixtures/merge.fixtures';
 
@@ -5,18 +6,25 @@ test.describe('Verify articles', () => {
   test(
     'article is not created without mandatory fields - title not provided',
     { tag: ['@GAD-R04-01', '@logged'] },
-    async ({ addArticlesView }) => {
+    async ({ addArticlesView, page }) => {
       // Arrange
       const expectedMessage = 'Article was not created';
+      const expectedResponseCode = 422;
 
       const articleData = prepareRandomArticle();
       articleData.articleTitle = '';
 
+      const responsePromise = page.waitForResponse('/api/articles', {
+        timeout: RESPONSE_TIMEOUT,
+      });
+
       // Act
       await addArticlesView.createArticle(articleData);
+      const response = await responsePromise;
 
       // Assert
       await expect(addArticlesView.alertPopup).toHaveText(expectedMessage);
+      expect(response.status()).toBe(expectedResponseCode);
     },
   );
   test(

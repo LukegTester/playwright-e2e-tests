@@ -11,7 +11,7 @@ export default [
   pluginJs.configs.recommended,
   {
     rules: {
-      'no-console': 'error',
+      'no-console': 'warn',
     },
   },
   ...tseslint.configs.recommended,

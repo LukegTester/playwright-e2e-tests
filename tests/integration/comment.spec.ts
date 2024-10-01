@@ -13,7 +13,13 @@ test.describe('Verify comments API response', () => {
       const expectedNewHeaderText = 'Add New Comment';
       const expectedCreatePopup = 'Comment was created';
 
-      const responsePromise = waitForResponse(page, '/api/comments', 'GET');
+      const waitParams = {
+        page,
+        url: '/api/comments',
+        method: 'GET',
+        text: createCommentData.body,
+      };
+      const responsePromise = waitForResponse(waitParams);
 
       // Act
       const addCommentView = await articlePage.clickAddCommentButton();

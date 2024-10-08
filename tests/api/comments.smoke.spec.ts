@@ -2,7 +2,7 @@ import { expect, test } from '@_src/fixtures/merge.fixtures';
 
 test.describe(
   'Verify comments API endpoint',
-  { tag: ['@GAD-R08-02', '@API'] },
+  { tag: ['@GAD-R08-02', '@smoke'] },
   () => {
     test(
       'GET comments should return objects with required fields',

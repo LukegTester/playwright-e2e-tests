@@ -1,6 +1,6 @@
 import { prepareRandomArticle } from '@_src/factories/article.factory';
 import { expect, test } from '@_src/fixtures/merge.fixtures';
-import { testUser1 } from '@_src/test-data/user.data';
+import { getAuthorizationHeader } from '@_src/utils/api.util';
 
 test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
   test(
@@ -35,7 +35,6 @@ test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
       // Arrange
       const expectedStatusCode = 201;
       const articlesUrl = '/api/articles';
-      const loginUrl = '/api/login';
 
       const randomArticleData = prepareRandomArticle();
       const articleData = {
@@ -47,19 +46,7 @@ test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
       };
 
       // Login
-      const loginData = {
-        email: testUser1.userEmail,
-        password: testUser1.userPassword,
-      };
-      const responseLogin = await request.post(loginUrl, {
-        data: loginData,
-      });
-      expect.soft(responseLogin.status()).toBeTruthy();
-      const loginBody = await responseLogin.json();
-      const bearerToken = loginBody.access_token;
-      const headers = {
-        Authorization: `Bearer ${bearerToken}`,
-      };
+      const headers = await getAuthorizationHeader(request);
 
       // Act
       const responseArticle = await request.post(articlesUrl, {

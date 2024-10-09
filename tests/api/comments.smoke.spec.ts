@@ -1,4 +1,5 @@
 import { expect, test } from '@_src/fixtures/merge.fixtures';
+import { apiLinks } from '@_src/utils/api.util';
 
 test.describe(
   'Verify comments API endpoint',
@@ -9,8 +10,8 @@ test.describe(
       { tag: '@predefined_data' },
       async ({ request }) => {
         // Arrange
-        const commentsUrl = '/api/comments';
-        const response = await request.get(commentsUrl);
+
+        const response = await request.get(apiLinks.commentsUrl);
 
         await test.step('GET comments returns status code 200', async () => {
           const expectedStatusCode = 200;

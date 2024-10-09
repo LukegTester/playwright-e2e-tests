@@ -1,24 +1,20 @@
-import { prepareRandomArticle } from '@_src/factories/article.factory';
-import { prepareRandomComment } from '@_src/factories/comment.factory';
 import { expect, test } from '@_src/fixtures/merge.fixtures';
-import { getAuthorizationHeader } from '@_src/utils/api.util';
+import {
+  getAuthorizationHeader,
+  prepareArticlePayload,
+  prepareCommentPayload,
+} from '@_src/utils/api.util';
 
 test.describe('Verify comments CRUD operations', { tag: '@crud' }, () => {
   let headers: { [key: string]: string };
   let articleId: number;
   test.beforeAll('login and create article', async ({ request }) => {
+    // Login
     headers = await getAuthorizationHeader(request);
 
     // Create article
     const articlesUrl = '/api/articles';
-    const randomArticleData = prepareRandomArticle();
-    const articleData = {
-      title: randomArticleData.articleTitle,
-      body: randomArticleData.articleBody,
-      date: new Date().toISOString(),
-      image:
-        '.\\data\\images\\256\\presentation_04aafc8b-7a49-4112-bf1c-5d7d9e338c97.jpg',
-    };
+    const articleData = prepareArticlePayload();
 
     const responseArticle = await request.post(articlesUrl, {
       headers,
@@ -35,13 +31,7 @@ test.describe('Verify comments CRUD operations', { tag: '@crud' }, () => {
       // Arrange
       const expectedCommentsStatusCode = 401;
       const commentsUrl = '/api/comments';
-
-      const randomCommentData = prepareRandomComment();
-      const commentData = {
-        article_id: articleId,
-        body: randomCommentData.body,
-        date: new Date().toISOString(),
-      };
+      const commentData = prepareCommentPayload(articleId);
 
       // Act
       const responseComment = await request.post(commentsUrl, {
@@ -63,13 +53,7 @@ test.describe('Verify comments CRUD operations', { tag: '@crud' }, () => {
       // Arrange
       const expectedStatusCode = 201;
       const commentsUrl = '/api/comments';
-
-      const randomCommentData = prepareRandomComment();
-      const commentData = {
-        article_id: articleId,
-        body: randomCommentData.body,
-        date: new Date().toISOString(),
-      };
+      const commentData = prepareCommentPayload(articleId);
 
       // Act
       const responseComment = await request.post(commentsUrl, {

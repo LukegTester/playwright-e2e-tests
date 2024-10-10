@@ -47,7 +47,7 @@ test.describe('Verify comments CRUD operations', { tag: '@crud' }, () => {
     },
   );
   test(
-    'should create an comment with logged user',
+    'should create a comment with logged user',
     { tag: '@GAD-R09-02' },
     async ({ request }) => {
       // Arrange

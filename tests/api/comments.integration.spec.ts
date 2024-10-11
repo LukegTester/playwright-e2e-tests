@@ -94,7 +94,7 @@ test.describe('Verify comments CRUD operations', { tag: '@crud' }, () => {
     );
     test(
       'should delete a comment with logged user',
-      { tag: '@GAD-R09-03' },
+      { tag: '@GAD-R09-04' },
       async ({ request }) => {
         // Arrange
         const expectedStatusCode = 200;
@@ -131,7 +131,7 @@ test.describe('Verify comments CRUD operations', { tag: '@crud' }, () => {
     );
     test(
       'should no delete a comment with non logged user',
-      { tag: '@GAD-R09-03' },
+      { tag: '@GAD-R09-04' },
       async ({ request }) => {
         // Arrange
         const expectedStatusCode = 401;

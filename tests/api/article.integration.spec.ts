@@ -43,19 +43,16 @@ test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
       headers = await getAuthorizationHeader(request);
     });
 
-    test.beforeEach(
-      'should create an article with logged user',
-      async ({ request }) => {
-        await new Promise((resolve) => setTimeout(resolve, 5000));
+    test.beforeEach('create an article', async ({ request }) => {
+      await new Promise((resolve) => setTimeout(resolve, 5000));
 
-        articleData = prepareArticlePayload();
+      articleData = prepareArticlePayload();
 
-        responseArticle = await request.post(apiLinks.articlesUrl, {
-          headers,
-          data: articleData,
-        });
-      },
-    );
+      responseArticle = await request.post(apiLinks.articlesUrl, {
+        headers,
+        data: articleData,
+      });
+    });
     test(
       'should create an article with logged user',
       { tag: '@GAD-R09-01' },

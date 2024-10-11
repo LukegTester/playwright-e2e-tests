@@ -10,29 +10,21 @@ test.describe('Verify service main pages', () => {
     expect(title).toContain(expectedHomepageTitle);
   });
 
-  test(
-    'articles page title',
-    { tag: '@GAD-R01-02' },
-    async ({ articlesPage }) => {
-      // Arrange
-      const expectedArticlesTitle = 'Articles';
+  test('articles page title', { tag: '@GAD-R01-02' }, async ({ articlesPage }) => {
+    // Arrange
+    const expectedArticlesTitle = 'Articles';
 
-      // Assert
-      const title = await articlesPage.getTitle();
-      expect(title).toContain(expectedArticlesTitle);
-    },
-  );
+    // Assert
+    const title = await articlesPage.getTitle();
+    expect(title).toContain(expectedArticlesTitle);
+  });
 
-  test(
-    'comments page title',
-    { tag: '@GAD-R01-02' },
-    async ({ commentsPage }) => {
-      // Arrange
-      const expectedCommentsTitle = 'Comments';
+  test('comments page title', { tag: '@GAD-R01-02' }, async ({ commentsPage }) => {
+    // Arrange
+    const expectedCommentsTitle = 'Comments';
 
-      // Assert
-      const title = await commentsPage.getTitle();
-      expect(title).toContain(expectedCommentsTitle);
-    },
-  );
+    // Assert
+    const title = await commentsPage.getTitle();
+    expect(title).toContain(expectedCommentsTitle);
+  });
 });

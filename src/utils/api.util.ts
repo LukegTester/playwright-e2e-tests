@@ -26,9 +26,7 @@ export const apiLinks = {
   loginUrl: '/api/login',
 };
 
-export async function getAuthorizationHeader(
-  request: APIRequestContext,
-): Promise<Headers> {
+export async function getAuthorizationHeader(request: APIRequestContext): Promise<Headers> {
   const loginUrl = apiLinks.loginUrl;
 
   const loginData = {
@@ -52,8 +50,7 @@ export function prepareArticlePayload(): ArticlePayload {
     title: randomArticleData.articleTitle,
     body: randomArticleData.articleBody,
     date: new Date().toISOString(),
-    image:
-      '.\\data\\images\\256\\presentation_04aafc8b-7a49-4112-bf1c-5d7d9e338c97.jpg',
+    image: '.\\data\\images\\256\\presentation_04aafc8b-7a49-4112-bf1c-5d7d9e338c97.jpg',
   };
 
   return articleData;

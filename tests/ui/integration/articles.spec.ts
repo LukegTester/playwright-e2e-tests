@@ -82,12 +82,8 @@ test.describe('Verify articles', () => {
         const response = await responsePromise;
 
         // Assert
-        await expect(articlePage.articleTitle).toHaveText(
-          articleData.articleTitle,
-        );
-        await expect(articlePage.articleBody).toHaveText(
-          articleData.articleBody,
-        );
+        await expect(articlePage.articleTitle).toHaveText(articleData.articleTitle);
+        await expect(articlePage.articleBody).toHaveText(articleData.articleBody);
         expect(response.status()).toBe(expectedResponseCode);
       },
     );
@@ -112,9 +108,7 @@ test.describe('Verify articles', () => {
         const response = await responsePromise;
 
         // Assert
-        await expect
-          .soft(articlePage.articleTitle)
-          .toHaveText(articleData.articleTitle);
+        await expect.soft(articlePage.articleTitle).toHaveText(articleData.articleTitle);
 
         expect(response.ok()).toBeTruthy();
       },

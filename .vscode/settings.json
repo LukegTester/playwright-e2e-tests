@@ -5,14 +5,5 @@
     "source.organizeImports": "explicit"
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "cSpell.words": [
-    "dropbtn",
-    "Firstname",
-    "jntest",
-    "Lastname",
-    "Łukasz",
-    "octavalidate",
-    "trivago",
-    "tseslint"
-  ]
+  "cSpell.words": ["dropbtn", "Firstname", "jntest", "Lastname", "Łukasz", "octavalidate", "trivago", "tseslint"]
 }

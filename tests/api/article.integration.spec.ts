@@ -1,39 +1,29 @@
 import { prepareRandomArticle } from '@_src/factories/article.factory';
 import { expect, test } from '@_src/fixtures/merge.fixtures';
-import {
-  ArticlePayload,
-  Headers,
-  apiLinks,
-  getAuthorizationHeader,
-  prepareArticlePayload,
-} from '@_src/utils/api.util';
+import { ArticlePayload, Headers, apiLinks, getAuthorizationHeader, prepareArticlePayload } from '@_src/utils/api.util';
 import { APIResponse } from '@playwright/test';
 
 test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
-  test(
-    'should not create an article without logged-in user',
-    { tag: '@GAD-R09-01' },
-    async ({ request }) => {
-      // Arrange
-      const expectedStatusCode = 401;
+  test('should not create an article without logged-in user', { tag: '@GAD-R09-01' }, async ({ request }) => {
+    // Arrange
+    const expectedStatusCode = 401;
 
-      const randomArticleData = prepareRandomArticle();
-      const articleData = {
-        title: randomArticleData.articleTitle,
-        body: randomArticleData.articleBody,
-        date: new Date().toISOString(),
-        image: 'string',
-      };
+    const randomArticleData = prepareRandomArticle();
+    const articleData = {
+      title: randomArticleData.articleTitle,
+      body: randomArticleData.articleBody,
+      date: new Date().toISOString(),
+      image: 'string',
+    };
 
-      // Act
-      const response = await request.post(apiLinks.articlesUrl, {
-        data: articleData,
-      });
+    // Act
+    const response = await request.post(apiLinks.articlesUrl, {
+      data: articleData,
+    });
 
-      // Assert
-      expect(response.status()).toBe(expectedStatusCode);
-    },
-  );
+    // Assert
+    expect(response.status()).toBe(expectedStatusCode);
+  });
   test.describe('CRUD operations', () => {
     let headers: Headers;
     let articleData: ArticlePayload;
@@ -52,91 +42,69 @@ test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
       });
       await new Promise((resolve) => setTimeout(resolve, 5000));
     });
-    test(
-      'should create an article with logged user',
-      { tag: '@GAD-R09-01' },
-      async () => {
-        // Arrange
-        const expectedStatusCode = 201;
+    test('should create an article with logged user', { tag: '@GAD-R09-01' }, async () => {
+      // Arrange
+      const expectedStatusCode = 201;
 
-        // Assert
-        const actualResponseStatus = responseArticle.status();
-        expect(
-          actualResponseStatus,
-          `status code expected: ${expectedStatusCode} but received: ${actualResponseStatus}`,
-        ).toBe(expectedStatusCode);
+      // Assert
+      const actualResponseStatus = responseArticle.status();
+      expect(
+        actualResponseStatus,
+        `status code expected: ${expectedStatusCode} but received: ${actualResponseStatus}`,
+      ).toBe(expectedStatusCode);
 
-        const articleJson = await responseArticle.json();
+      const articleJson = await responseArticle.json();
 
-        const fieldsToCheck = ['title', 'body', 'date', 'image'];
-        fieldsToCheck.forEach((field) => {
-          expect
-            .soft(
-              articleJson[field],
-              `Field: ${field} mismatch between request and response payload`,
-            )
-            .toEqual(articleData[field]);
-        });
-      },
-    );
-    test(
-      'should delete an article with logged user',
-      { tag: '@GAD-R09-03' },
-      async ({ request }) => {
-        // Arrange
-        const expectedStatusCode = 200;
-        const articleJson = await responseArticle.json();
-        const articleId = articleJson.id;
+      const fieldsToCheck = ['title', 'body', 'date', 'image'];
+      fieldsToCheck.forEach((field) => {
+        expect
+          .soft(articleJson[field], `Field: ${field} mismatch between request and response payload`)
+          .toEqual(articleData[field]);
+      });
+    });
+    test('should delete an article with logged user', { tag: '@GAD-R09-03' }, async ({ request }) => {
+      // Arrange
+      const expectedStatusCode = 200;
+      const articleJson = await responseArticle.json();
+      const articleId = articleJson.id;
 
-        // Act
-        const responseArticleDelete = await request.delete(
-          `${apiLinks.articlesUrl}/${articleId}`,
-          {
-            headers,
-          },
-        );
+      // Act
+      const responseArticleDelete = await request.delete(`${apiLinks.articlesUrl}/${articleId}`, {
+        headers,
+      });
 
-        // Assert
-        const actualResponseStatus = responseArticleDelete.status();
-        expect(
-          actualResponseStatus,
-          `status code expected: ${expectedStatusCode} but received: ${actualResponseStatus}`,
-        ).toBe(expectedStatusCode);
+      // Assert
+      const actualResponseStatus = responseArticleDelete.status();
+      expect(
+        actualResponseStatus,
+        `status code expected: ${expectedStatusCode} but received: ${actualResponseStatus}`,
+      ).toBe(expectedStatusCode);
 
-        // Assert 2
-        const expectedStatusCodeAfterDelete = 404;
+      // Assert 2
+      const expectedStatusCodeAfterDelete = 404;
 
-        const responseArticleGet = await request.get(
-          `${apiLinks.articlesUrl}/${articleId}`,
-        );
-        const actualGetResponseStatus = responseArticleGet.status();
-        expect(
-          actualGetResponseStatus,
-          `status code expected: ${expectedStatusCodeAfterDelete} but received: ${actualGetResponseStatus}`,
-        ).toBe(expectedStatusCodeAfterDelete);
-      },
-    );
-    test(
-      'should no delete an article with non logged user',
-      { tag: '@GAD-R09-03' },
-      async ({ request }) => {
-        // Arrange
-        const expectedStatusCode = 401;
-        const articleJson = await responseArticle.json();
-        const articleId = articleJson.id;
+      const responseArticleGet = await request.get(`${apiLinks.articlesUrl}/${articleId}`);
+      const actualGetResponseStatus = responseArticleGet.status();
+      expect(
+        actualGetResponseStatus,
+        `status code expected: ${expectedStatusCodeAfterDelete} but received: ${actualGetResponseStatus}`,
+      ).toBe(expectedStatusCodeAfterDelete);
+    });
+    test('should no delete an article with non logged user', { tag: '@GAD-R09-03' }, async ({ request }) => {
+      // Arrange
+      const expectedStatusCode = 401;
+      const articleJson = await responseArticle.json();
+      const articleId = articleJson.id;
 
-        // Act
-        const responseArticleDelete = await request.delete(
-          `${apiLinks.articlesUrl}/${articleId}`,
-        );
+      // Act
+      const responseArticleDelete = await request.delete(`${apiLinks.articlesUrl}/${articleId}`);
 
-        // Assert
-        const actualResponseStatus = responseArticleDelete.status();
-        expect(
-          actualResponseStatus,
-          `status code expected: ${expectedStatusCode} but received: ${actualResponseStatus}`,
-        ).toBe(expectedStatusCode);
-      },
-    );
+      // Assert
+      const actualResponseStatus = responseArticleDelete.status();
+      expect(
+        actualResponseStatus,
+        `status code expected: ${expectedStatusCode} but received: ${actualResponseStatus}`,
+      ).toBe(expectedStatusCode);
+    });
   });
 });

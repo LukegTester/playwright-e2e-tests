@@ -23,9 +23,7 @@ test.describe('Verify comments API response', () => {
 
       // Act
       const addCommentView = await articlePage.clickAddCommentButton();
-      await expect
-        .soft(addCommentView.addNewHeader)
-        .toHaveText(expectedNewHeaderText);
+      await expect.soft(addCommentView.addNewHeader).toHaveText(expectedNewHeaderText);
 
       articlePage = await addCommentView.createComment(createCommentData);
       const response = await responsePromise;

@@ -34,4 +34,10 @@ export default [
     },
   },
   eslintPluginPrettierRecommended,
+  {
+    rules: {
+      // Disable ESLint's formatting rules to avoid conflicts with Prettier
+      'prettier/prettier': ['error', { printWidth: 120 }],
+    },
+  },
 ];

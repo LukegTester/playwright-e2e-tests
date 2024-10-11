@@ -44,21 +44,18 @@ test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
     });
 
     test.beforeEach('create an article', async ({ request }) => {
-      await new Promise((resolve) => setTimeout(resolve, 5000));
-
       articleData = prepareArticlePayload();
 
       responseArticle = await request.post(apiLinks.articlesUrl, {
         headers,
         data: articleData,
       });
+      await new Promise((resolve) => setTimeout(resolve, 5000));
     });
     test(
       'should create an article with logged user',
       { tag: '@GAD-R09-01' },
       async () => {
-        await new Promise((resolve) => setTimeout(resolve, 5000));
-
         // Arrange
         const expectedStatusCode = 201;
 

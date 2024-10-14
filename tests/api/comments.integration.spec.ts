@@ -23,12 +23,21 @@ test.describe('Verify comments CRUD operations', { tag: '@crud' }, () => {
       headers,
       data: articleData,
     });
-    await new Promise((resolve) => setTimeout(resolve, 5000));
-
+    // assert article exist
     const article = await responseArticle.json();
     articleId = article.id;
+    const expectedGetArticleStatusCode = 200;
+
+    await expect(async () => {
+      const responseArticleCreated = await request.get(`${apiLinks.articlesUrl}/${articleId}`);
+
+      expect(
+        responseArticleCreated.status(),
+        `Expected to receive status code ${expectedGetArticleStatusCode} but received status: ${responseArticleCreated.status()}`,
+      ).toBe(expectedGetArticleStatusCode);
+    }).toPass({ timeout: 2_000 });
   });
-  test('should not create comment without logged-in user', { tag: '@GAD-R09-02' }, async ({ request }) => {
+  test('should not create comment with non logged-in user', { tag: '@GAD-R09-02' }, async ({ request }) => {
     // Arrange
     const expectedCommentsStatusCode = 401;
 
@@ -55,7 +64,19 @@ test.describe('Verify comments CRUD operations', { tag: '@crud' }, () => {
         headers,
         data: commentData,
       });
-      await new Promise((resolve) => setTimeout(resolve, 5000));
+
+      // assert comment exist
+      const commentJson = await responseComment.json();
+      const expectedGetCommentStatusCode = 200;
+
+      await expect(async () => {
+        const responseCommentCreated = await request.get(`${apiLinks.commentsUrl}/${commentJson.id}`);
+
+        expect(
+          responseCommentCreated.status(),
+          `Expected to receive status code ${expectedGetCommentStatusCode} but received status: ${responseCommentCreated.status()}`,
+        ).toBe(expectedGetCommentStatusCode);
+      }).toPass({ timeout: 2_000 });
     });
 
     test('should create a comment with logged user', { tag: '@GAD-R09-02' }, async () => {

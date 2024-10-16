@@ -1,4 +1,3 @@
-import { prepareRandomArticle } from '@_src/ui/factories/article.factory';
 import { prepareRandomComment } from '@_src/ui/factories/comment.factory';
 import { testUser1 } from '@_src/ui/test-data/user.data';
 import { APIRequestContext } from '@playwright/test';
@@ -42,18 +41,6 @@ export async function getAuthorizationHeader(request: APIRequestContext): Promis
   return {
     Authorization: `Bearer ${loginBody.access_token}`,
   };
-}
-
-export function prepareArticlePayload(): ArticlePayload {
-  const randomArticleData = prepareRandomArticle();
-  const articleData = {
-    title: randomArticleData.articleTitle,
-    body: randomArticleData.articleBody,
-    date: new Date().toISOString(),
-    image: '.\\data\\images\\256\\presentation_04aafc8b-7a49-4112-bf1c-5d7d9e338c97.jpg',
-  };
-
-  return articleData;
 }
 
 export function prepareCommentPayload(articleId: number): CommentPayload {

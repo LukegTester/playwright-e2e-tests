@@ -3,9 +3,9 @@ import {
   Headers,
   apiLinks,
   getAuthorizationHeader,
-  prepareArticlePayload,
   prepareCommentPayload,
 } from '@_src/api/utils/api.util';
+import { prepareArticlePayload } from '@_src/factories/article-payload.api.factory';
 import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 import { APIResponse } from '@playwright/test';
 

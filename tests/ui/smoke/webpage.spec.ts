@@ -1,4 +1,4 @@
-import { expect, test } from '@_src/fixtures/merge.fixtures';
+import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 
 test.describe('Verify service main pages', () => {
   test('home page title', { tag: '@GAD-R01-01' }, async ({ homePage }) => {

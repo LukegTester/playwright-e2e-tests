@@ -1,8 +1,8 @@
-import { MainMenuComponent } from '@_src/components/main-menu.components';
-import { ArticlesPage } from '@_src/pages/articles.page';
-import { BasePage } from '@_src/pages/base.page';
-import { CommentPage } from '@_src/pages/comment.page';
-import { AddCommentView } from '@_src/views/add-comment.view';
+import { MainMenuComponent } from '@_src/ui/components/main-menu.components';
+import { ArticlesPage } from '@_src/ui/pages/articles.page';
+import { BasePage } from '@_src/ui/pages/base.page';
+import { CommentPage } from '@_src/ui/pages/comment.page';
+import { AddCommentView } from '@_src/ui/views/add-comment.view';
 import { Locator, Page } from '@playwright/test';
 
 interface ArticleComment {

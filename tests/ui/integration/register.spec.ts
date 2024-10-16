@@ -1,6 +1,6 @@
-import { prepareRandomUser } from '@_src/factories/user.factory';
-import { expect, test } from '@_src/fixtures/merge.fixtures';
-import { RegisterUserModel } from '@_src/models/user.model';
+import { prepareRandomUser } from '@_src/ui/factories/user.factory';
+import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
+import { RegisterUserModel } from '@_src/ui/models/user.model';
 
 test.describe('Verify register', () => {
   let registerUserData: RegisterUserModel;

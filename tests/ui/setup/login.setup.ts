@@ -1,6 +1,6 @@
 import { STORAGE_STATE } from '@_pw-config';
-import { expect, test as setup } from '@_src/fixtures/merge.fixtures';
-import { testUser1 } from '@_src/test-data/user.data';
+import { expect, test as setup } from '@_src/ui/fixtures/merge.fixtures';
+import { testUser1 } from '@_src/ui/test-data/user.data';
 
 setup('login and save session', { tag: '@GAD-R02-01' }, async ({ loginPage, page }) => {
   // Arrange

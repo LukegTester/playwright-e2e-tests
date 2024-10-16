@@ -1,5 +1,5 @@
-import { expect, test } from '@_src/fixtures/merge.fixtures';
-import { apiLinks } from '@_src/utils/api.util';
+import { apiLinks } from '@_src/api/utils/api.util';
+import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 
 test.describe('Verify articles API endpoint', { tag: ['@GAD-R08-01', '@smoke'] }, () => {
   test.describe('Verify each condition in separate test', () => {

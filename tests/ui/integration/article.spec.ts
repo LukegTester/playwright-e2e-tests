@@ -1,4 +1,4 @@
-import { expect, test } from '@_src/fixtures/merge.fixtures';
+import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 
 test.describe('Verify articles', () => {
   test(

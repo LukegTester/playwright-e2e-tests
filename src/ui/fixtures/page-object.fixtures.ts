@@ -1,10 +1,10 @@
-import { ArticlePage } from '@_src/pages/article.page';
-import { ArticlesPage } from '@_src/pages/articles.page';
-import { CommentsPage } from '@_src/pages/comments.page';
-import { HomePage } from '@_src/pages/home.page';
-import { LoginPage } from '@_src/pages/login.page';
-import { RegisterPage } from '@_src/pages/register.page';
-import { AddArticlesView } from '@_src/views/add-articles.view';
+import { ArticlePage } from '@_src/ui/pages/article.page';
+import { ArticlesPage } from '@_src/ui/pages/articles.page';
+import { CommentsPage } from '@_src/ui/pages/comments.page';
+import { HomePage } from '@_src/ui/pages/home.page';
+import { LoginPage } from '@_src/ui/pages/login.page';
+import { RegisterPage } from '@_src/ui/pages/register.page';
+import { AddArticlesView } from '@_src/ui/views/add-articles.view';
 import { test } from '@playwright/test';
 
 interface Pages {

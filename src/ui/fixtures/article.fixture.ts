@@ -1,7 +1,7 @@
-import { prepareRandomArticle } from '@_src/factories/article.factory';
-import { pageObjectTest } from '@_src/fixtures/page-object.fixtures';
-import { AddArticleModel } from '@_src/models/article.model';
-import { ArticlePage } from '@_src/pages/article.page';
+import { prepareRandomArticle } from '@_src/ui/factories/article.factory';
+import { pageObjectTest } from '@_src/ui/fixtures/page-object.fixtures';
+import { AddArticleModel } from '@_src/ui/models/article.model';
+import { ArticlePage } from '@_src/ui/pages/article.page';
 
 interface ArticleCreationContext {
   articlePage: ArticlePage;

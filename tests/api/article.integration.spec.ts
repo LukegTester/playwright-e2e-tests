@@ -1,6 +1,12 @@
-import { prepareRandomArticle } from '@_src/factories/article.factory';
-import { expect, test } from '@_src/fixtures/merge.fixtures';
-import { ArticlePayload, Headers, apiLinks, getAuthorizationHeader, prepareArticlePayload } from '@_src/utils/api.util';
+import {
+  ArticlePayload,
+  Headers,
+  apiLinks,
+  getAuthorizationHeader,
+  prepareArticlePayload,
+} from '@_src/api/utils/api.util';
+import { prepareRandomArticle } from '@_src/ui/factories/article.factory';
+import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 import { APIResponse } from '@playwright/test';
 
 test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {

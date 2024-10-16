@@ -1,5 +1,5 @@
-import { expect, test } from '@_src/fixtures/merge.fixtures';
-import { waitForResponse } from '@_src/utils/wait.util';
+import { waitForResponse } from '@_src/api/utils/wait.util';
+import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 
 test.describe('Verify search component for articles', () => {
   test('go button should fetch articles', { tag: ['@GAD-R07-01', '@GAD-R07-03'] }, async ({ articlesPage, page }) => {

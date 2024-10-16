@@ -1,6 +1,6 @@
-import { LoginUserModel } from '@_src/models/user.model';
-import { BasePage } from '@_src/pages/base.page';
-import { WelcomePage } from '@_src/pages/welcome.page';
+import { LoginUserModel } from '@_src/ui/models/user.model';
+import { BasePage } from '@_src/ui/pages/base.page';
+import { WelcomePage } from '@_src/ui/pages/welcome.page';
 import { Page } from '@playwright/test';
 
 export class LoginPage extends BasePage {

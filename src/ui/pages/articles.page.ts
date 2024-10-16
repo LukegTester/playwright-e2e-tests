@@ -1,7 +1,7 @@
-import { MainMenuComponent } from '@_src/components/main-menu.components';
-import { ArticlePage } from '@_src/pages/article.page';
-import { BasePage } from '@_src/pages/base.page';
-import { AddArticlesView } from '@_src/views/add-articles.view';
+import { MainMenuComponent } from '@_src/ui/components/main-menu.components';
+import { ArticlePage } from '@_src/ui/pages/article.page';
+import { BasePage } from '@_src/ui/pages/base.page';
+import { AddArticlesView } from '@_src/ui/views/add-articles.view';
 import { Page } from '@playwright/test';
 
 export class ArticlesPage extends BasePage {

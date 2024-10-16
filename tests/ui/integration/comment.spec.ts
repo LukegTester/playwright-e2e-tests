@@ -1,6 +1,6 @@
-import { waitForResponse } from '@_src/api/utils/wait.util';
 import { prepareRandomComment } from '@_src/ui/factories/comment.factory';
 import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
+import { waitForResponse } from '@_src/ui/utils/wait.util';
 
 test.describe('Verify comments API response', () => {
   test(

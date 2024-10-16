@@ -8,6 +8,7 @@ interface WaitParameters {
   status?: number;
   text?: string;
 }
+
 export async function waitForResponse(waitParams: WaitParameters): Promise<Response> {
   return waitParams.page.waitForResponse(
     async (response) => {

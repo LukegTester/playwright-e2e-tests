@@ -1,11 +1,11 @@
-import { apiLinks } from '@_src/api/utils/api.util';
+import { apiUrls } from '@_src/api/utils/api.util';
 import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 
 test.describe('Verify comments API endpoint', { tag: ['@GAD-R08-02', '@smoke'] }, () => {
   test('GET comments should return objects with required fields', { tag: '@predefined_data' }, async ({ request }) => {
     // Arrange
 
-    const response = await request.get(apiLinks.commentsUrl);
+    const response = await request.get(apiUrls.commentsUrl);
 
     await test.step('GET comments returns status code 200', async () => {
       const expectedStatusCode = 200;

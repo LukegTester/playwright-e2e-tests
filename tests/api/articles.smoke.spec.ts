@@ -1,4 +1,4 @@
-import { apiLinks } from '@_src/api/utils/api.util';
+import { apiUrls } from '@_src/api/utils/api.util';
 import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 
 test.describe('Verify articles API endpoint', { tag: ['@GAD-R08-01', '@smoke'] }, () => {
@@ -8,7 +8,7 @@ test.describe('Verify articles API endpoint', { tag: ['@GAD-R08-01', '@smoke'] }
       const expectedStatusCode = 200;
 
       // Act
-      const response = await request.get(apiLinks.articlesUrl);
+      const response = await request.get(apiUrls.articlesUrl);
 
       // Assert
       expect(response.status()).toBe(expectedStatusCode);
@@ -18,7 +18,7 @@ test.describe('Verify articles API endpoint', { tag: ['@GAD-R08-01', '@smoke'] }
       const expectedMinArticleCount = 1;
 
       // Act
-      const response = await request.get(apiLinks.articlesUrl);
+      const response = await request.get(apiUrls.articlesUrl);
       const responseJson = await response.json();
 
       // Assert
@@ -30,7 +30,7 @@ test.describe('Verify articles API endpoint', { tag: ['@GAD-R08-01', '@smoke'] }
       const expectedRequiredFields = ['id', 'user_id', 'title', 'body', 'date', 'image'];
 
       // Act
-      const response = await request.get(apiLinks.articlesUrl);
+      const response = await request.get(apiUrls.articlesUrl);
       const responseJson = await response.json();
       const article = responseJson[0];
 
@@ -43,7 +43,7 @@ test.describe('Verify articles API endpoint', { tag: ['@GAD-R08-01', '@smoke'] }
   test('GET articles should return objects with required fields', { tag: '@predefined_data' }, async ({ request }) => {
     // Arrange
 
-    const response = await request.get(apiLinks.articlesUrl);
+    const response = await request.get(apiUrls.articlesUrl);
 
     await test.step('GET articles returns status code 200', async () => {
       const expectedStatusCode = 200;

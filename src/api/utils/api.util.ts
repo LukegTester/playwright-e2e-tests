@@ -1,4 +1,4 @@
-export const apiLinks = {
+export const apiUrls = {
   articlesUrl: '/api/articles',
   commentsUrl: '/api/comments',
   loginUrl: '/api/login',

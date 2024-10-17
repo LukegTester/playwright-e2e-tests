@@ -1,4 +1,4 @@
-import { ArticlePayload, Headers, apiLinks } from '@_src/api/utils/api.util';
+import { ArticlePayload, Headers, apiUrls } from '@_src/api/utils/api.util';
 import { prepareArticlePayload } from '@_src/factories/article-payload.api.factory';
 import { getAuthorizationHeader } from '@_src/factories/authorization-header.api.factory';
 import { prepareRandomArticle } from '@_src/ui/factories/article.factory';
@@ -19,7 +19,7 @@ test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
     };
 
     // Act
-    const response = await request.post(apiLinks.articlesUrl, {
+    const response = await request.post(apiUrls.articlesUrl, {
       data: articleData,
     });
 
@@ -38,7 +38,7 @@ test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
     test.beforeEach('create an article', async ({ request }) => {
       articleData = prepareArticlePayload();
 
-      responseArticle = await request.post(apiLinks.articlesUrl, {
+      responseArticle = await request.post(apiUrls.articlesUrl, {
         headers,
         data: articleData,
       });
@@ -48,7 +48,7 @@ test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
       const expectedGetArticleStatusCode = 200;
 
       await expect(async () => {
-        const responseArticleCreated = await request.get(`${apiLinks.articlesUrl}/${articleJson.id}`);
+        const responseArticleCreated = await request.get(`${apiUrls.articlesUrl}/${articleJson.id}`);
 
         expect(
           responseArticleCreated.status(),
@@ -83,7 +83,7 @@ test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
       const articleId = articleJson.id;
 
       // Act
-      const responseArticleDelete = await request.delete(`${apiLinks.articlesUrl}/${articleId}`, {
+      const responseArticleDelete = await request.delete(`${apiUrls.articlesUrl}/${articleId}`, {
         headers,
       });
 
@@ -97,7 +97,7 @@ test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
       // Assert 2
       const expectedStatusCodeAfterDelete = 404;
 
-      const responseArticleGet = await request.get(`${apiLinks.articlesUrl}/${articleId}`);
+      const responseArticleGet = await request.get(`${apiUrls.articlesUrl}/${articleId}`);
       const actualGetResponseStatus = responseArticleGet.status();
       expect(
         actualGetResponseStatus,
@@ -111,7 +111,7 @@ test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
       const articleId = articleJson.id;
 
       // Act
-      const responseArticleDelete = await request.delete(`${apiLinks.articlesUrl}/${articleId}`);
+      const responseArticleDelete = await request.delete(`${apiUrls.articlesUrl}/${articleId}`);
 
       // Assert
       const actualResponseStatus = responseArticleDelete.status();

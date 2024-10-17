@@ -1,6 +1,7 @@
 import { apiUrls } from '@_src/api/utils/api.util';
 import { createArticleWithApi } from '@_src/factories/article-create.api.factory';
 import { getAuthorizationHeader } from '@_src/factories/authorization-header.api.factory';
+import { createCommentWithApi } from '@_src/factories/comment-create.api.factory';
 import { prepareCommentPayload } from '@_src/factories/comment-payload.factory';
 import { CommentPayload } from '@_src/models/comment.api.model';
 import { Headers } from '@_src/models/header.api.model';
@@ -43,23 +44,7 @@ test.describe('Verify comments CRUD operations', { tag: '@crud' }, () => {
     let responseComment: APIResponse;
     test.beforeEach('create a comment with logged user', async ({ request }) => {
       commentData = prepareCommentPayload(articleId);
-      responseComment = await request.post(apiUrls.commentsUrl, {
-        headers,
-        data: commentData,
-      });
-
-      // assert comment exist
-      const commentJson = await responseComment.json();
-      const expectedGetCommentStatusCode = 200;
-
-      await expect(async () => {
-        const responseCommentCreated = await request.get(`${apiUrls.commentsUrl}/${commentJson.id}`);
-
-        expect(
-          responseCommentCreated.status(),
-          `Expected to receive status code ${expectedGetCommentStatusCode} but received status: ${responseCommentCreated.status()}`,
-        ).toBe(expectedGetCommentStatusCode);
-      }).toPass({ timeout: 2_000 });
+      responseComment = await createCommentWithApi(request, headers, articleId, commentData);
     });
 
     test('should create a comment with logged user', { tag: '@GAD-R09-02' }, async () => {

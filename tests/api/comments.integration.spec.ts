@@ -1,5 +1,5 @@
 import { apiUrls } from '@_src/api/utils/api.util';
-import { prepareArticlePayload } from '@_src/factories/article-payload.api.factory';
+import { createArticleWithApi } from '@_src/factories/article-create.api.factory';
 import { getAuthorizationHeader } from '@_src/factories/authorization-header.api.factory';
 import { prepareCommentPayload } from '@_src/factories/comment-payload.factory';
 import { CommentPayload } from '@_src/models/comment.api.model';
@@ -15,25 +15,10 @@ test.describe('Verify comments CRUD operations', { tag: '@crud' }, () => {
     headers = await getAuthorizationHeader(request);
 
     // Create article
-    const articleData = prepareArticlePayload();
+    const responseArticle = await createArticleWithApi(request, headers);
 
-    const responseArticle = await request.post(apiUrls.articlesUrl, {
-      headers,
-      data: articleData,
-    });
-    // assert article exist
     const article = await responseArticle.json();
     articleId = article.id;
-    const expectedGetArticleStatusCode = 200;
-
-    await expect(async () => {
-      const responseArticleCreated = await request.get(`${apiUrls.articlesUrl}/${articleId}`);
-
-      expect(
-        responseArticleCreated.status(),
-        `Expected to receive status code ${expectedGetArticleStatusCode} but received status: ${responseArticleCreated.status()}`,
-      ).toBe(expectedGetArticleStatusCode);
-    }).toPass({ timeout: 2_000 });
   });
   test('should not create comment with non logged-in user', { tag: '@GAD-R09-02' }, async ({ request }) => {
     // Arrange

@@ -1,4 +1,5 @@
 import { apiUrls } from '@_src/api/utils/api.util';
+import { createArticleWithApi } from '@_src/factories/article-create.api.factory';
 import { prepareArticlePayload } from '@_src/factories/article-payload.api.factory';
 import { getAuthorizationHeader } from '@_src/factories/authorization-header.api.factory';
 import { ArticlePayload } from '@_src/models/article.api.model';
@@ -39,24 +40,7 @@ test.describe('Verify articles CRUD operations', { tag: '@crud' }, () => {
 
     test.beforeEach('create an article', async ({ request }) => {
       articleData = prepareArticlePayload();
-
-      responseArticle = await request.post(apiUrls.articlesUrl, {
-        headers,
-        data: articleData,
-      });
-
-      // assert article exist
-      const articleJson = await responseArticle.json();
-      const expectedGetArticleStatusCode = 200;
-
-      await expect(async () => {
-        const responseArticleCreated = await request.get(`${apiUrls.articlesUrl}/${articleJson.id}`);
-
-        expect(
-          responseArticleCreated.status(),
-          `Expected to receive status code ${expectedGetArticleStatusCode} but received status: ${responseArticleCreated.status()}`,
-        ).toBe(expectedGetArticleStatusCode);
-      }).toPass({ timeout: 2_000 });
+      responseArticle = await createArticleWithApi(request, headers, articleData);
     });
     test('should create an article with logged user', { tag: '@GAD-R09-01' }, async () => {
       // Arrange

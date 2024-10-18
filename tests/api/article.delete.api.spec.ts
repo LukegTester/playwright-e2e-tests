@@ -1,8 +1,6 @@
 import { expectGetResponseStatus } from '@_src/api/assertions/assertions.api';
 import { createArticleWithApi } from '@_src/api/factories/article-create.api.factory';
-import { prepareArticlePayload } from '@_src/api/factories/article-payload.api.factory';
 import { getAuthorizationHeader } from '@_src/api/factories/authorization-header.api.factory';
-import { ArticlePayload } from '@_src/api/models/article.api.model';
 import { Headers } from '@_src/api/models/header.api.model';
 import { apiUrls } from '@_src/api/utils/api.util';
 import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
@@ -10,7 +8,6 @@ import { APIResponse } from '@playwright/test';
 
 test.describe('Verify articles DELETE operations', { tag: ['@crud', '@article', '@delete', '@api'] }, () => {
   let headers: Headers;
-  let articleData: ArticlePayload;
   let responseArticle: APIResponse;
 
   test.beforeAll('should login', async ({ request }) => {
@@ -18,8 +15,7 @@ test.describe('Verify articles DELETE operations', { tag: ['@crud', '@article', 
   });
 
   test.beforeEach('create an article', async ({ request }) => {
-    articleData = prepareArticlePayload();
-    responseArticle = await createArticleWithApi(request, headers, articleData);
+    responseArticle = await createArticleWithApi(request, headers);
   });
   test('should delete an article with logged user', { tag: '@GAD-R09-03' }, async ({ request }) => {
     // Arrange

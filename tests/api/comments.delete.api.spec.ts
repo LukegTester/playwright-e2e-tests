@@ -2,7 +2,6 @@ import { expectGetResponseStatus } from '@_src/api/assertions/assertions.api';
 import { createArticleWithApi } from '@_src/api/factories/article-create.api.factory';
 import { getAuthorizationHeader } from '@_src/api/factories/authorization-header.api.factory';
 import { createCommentWithApi } from '@_src/api/factories/comment-create.api.factory';
-import { prepareCommentPayload } from '@_src/api/factories/comment-payload.factory';
 import { Headers } from '@_src/api/models/header.api.model';
 import { apiUrls } from '@_src/api/utils/api.util';
 import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
@@ -24,8 +23,7 @@ test.describe('Verify comments DELETE operations', { tag: ['@crud', '@comment', 
   });
 
   test.beforeEach('create a comment with logged user', async ({ request }) => {
-    const commentData = prepareCommentPayload(articleId);
-    responseComment = await createCommentWithApi(request, headers, articleId, commentData);
+    responseComment = await createCommentWithApi(request, headers, articleId);
   });
   test('should delete a comment with logged user', { tag: '@GAD-R09-04' }, async ({ request }) => {
     // Arrange

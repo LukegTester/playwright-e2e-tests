@@ -1,3 +1,4 @@
+import { expectGetResponseStatus } from '@_src/api/assertions/assertions.api';
 import { createArticleWithApi } from '@_src/api/factories/article-create.api.factory';
 import { getAuthorizationHeader } from '@_src/api/factories/authorization-header.api.factory';
 import { createCommentWithApi } from '@_src/api/factories/comment-create.api.factory';
@@ -87,13 +88,12 @@ test.describe('Verify comments CRUD operations', { tag: '@crud' }, () => {
 
       // Assert 2
       const expectedStatusCodeAfterDelete = 404;
-
-      const responseCommentGet = await request.get(`${apiUrls.commentsUrl}/${commentId}`);
-      const actualGetResponseStatus = responseCommentGet.status();
-      expect(
-        actualGetResponseStatus,
-        `status code expected: ${expectedStatusCodeAfterDelete} but received: ${actualGetResponseStatus}`,
-      ).toBe(expectedStatusCodeAfterDelete);
+      await expectGetResponseStatus(
+        request,
+        `$${apiUrls.commentsUrl}/${commentId}`,
+        expectedStatusCodeAfterDelete,
+        headers,
+      );
     });
     test('should no delete a comment with non logged user', { tag: '@GAD-R09-04' }, async ({ request }) => {
       // Arrange
@@ -110,6 +110,10 @@ test.describe('Verify comments CRUD operations', { tag: '@crud' }, () => {
         actualResponseStatus,
         `status code expected: ${expectedStatusCode} but received: ${actualResponseStatus}`,
       ).toBe(expectedStatusCode);
+
+      // Assert get comment after delete
+      const expectedStatusCodeAfterDelete = 200;
+      await expectGetResponseStatus(request, `${apiUrls.commentsUrl}/${commentId}`, expectedStatusCodeAfterDelete);
     });
   });
 });

@@ -1,7 +1,7 @@
+import { prepareCommentPayload } from '@_src/api/factories/comment-payload.factory';
+import { CommentPayload } from '@_src/api/models/comment.api.model';
+import { Headers } from '@_src/api/models/header.api.model';
 import { apiUrls } from '@_src/api/utils/api.util';
-import { prepareCommentPayload } from '@_src/factories/comment-payload.factory';
-import { CommentPayload } from '@_src/models/comment.api.model';
-import { Headers } from '@_src/models/header.api.model';
 import { expect } from '@_src/ui/fixtures/merge.fixtures';
 import { APIRequestContext, APIResponse } from '@playwright/test';
 

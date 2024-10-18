@@ -1,10 +1,10 @@
+import { createArticleWithApi } from '@_src/api/factories/article-create.api.factory';
+import { getAuthorizationHeader } from '@_src/api/factories/authorization-header.api.factory';
+import { createCommentWithApi } from '@_src/api/factories/comment-create.api.factory';
+import { prepareCommentPayload } from '@_src/api/factories/comment-payload.factory';
+import { CommentPayload } from '@_src/api/models/comment.api.model';
+import { Headers } from '@_src/api/models/header.api.model';
 import { apiUrls } from '@_src/api/utils/api.util';
-import { createArticleWithApi } from '@_src/factories/article-create.api.factory';
-import { getAuthorizationHeader } from '@_src/factories/authorization-header.api.factory';
-import { createCommentWithApi } from '@_src/factories/comment-create.api.factory';
-import { prepareCommentPayload } from '@_src/factories/comment-payload.factory';
-import { CommentPayload } from '@_src/models/comment.api.model';
-import { Headers } from '@_src/models/header.api.model';
 import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 import { APIResponse } from '@playwright/test';
 

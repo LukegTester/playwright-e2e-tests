@@ -1,7 +1,7 @@
+import { prepareArticlePayload } from '@_src/api/factories/article-payload.api.factory';
+import { ArticlePayload } from '@_src/api/models/article.api.model';
+import { Headers } from '@_src/api/models/header.api.model';
 import { apiUrls } from '@_src/api/utils/api.util';
-import { prepareArticlePayload } from '@_src/factories/article-payload.api.factory';
-import { ArticlePayload } from '@_src/models/article.api.model';
-import { Headers } from '@_src/models/header.api.model';
 import { expect } from '@_src/ui/fixtures/merge.fixtures';
 import { APIRequestContext, APIResponse } from '@playwright/test';
 

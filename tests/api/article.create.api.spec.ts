@@ -27,7 +27,7 @@ test.describe('Verify articles CREATE operations', { tag: ['@crud', '@article', 
     // Assert
     expect(response.status()).toBe(expectedStatusCode);
   });
-  test.describe('CRUD operations', () => {
+  test.describe('CREATE operations', () => {
     let headers: Headers;
 
     test.beforeAll('should login', async ({ request }) => {

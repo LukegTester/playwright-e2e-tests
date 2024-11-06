@@ -3,7 +3,6 @@
 ## GAD Application
 
 Repository: https://github.com/jaktestowac/gad-gui-api-demo
-Application requirements: https://jaktestowac.pl/lesson/pw2sb01l02/
 
 Follow instructions in app README
 

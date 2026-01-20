@@ -1,7 +1,7 @@
 import { apiUrls } from '@_src/api/utils/api.util';
 import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 
-test.describe('Verify comments API endpoint', { tag: ['@GAD-R08-02', '@smoke'] }, () => {
+test.describe('Verify comments API endpoint', { tag: ['@api', '@GAD-R08-02'] }, () => {
   test('GET comments should return objects with required fields', { tag: '@predefined_data' }, async ({ request }) => {
     // Arrange
 

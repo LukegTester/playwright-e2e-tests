@@ -1,7 +1,7 @@
 import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 
 test.describe('Verify menu main buttons', () => {
-  test('comments button navigate to comments page', { tag: '@GAD-R01-03' }, async ({ articlesPage }) => {
+  test('comments button navigate to comments page', { tag: ['@smoke', '@GAD-R01-03'] }, async ({ articlesPage }) => {
     // Arrange
     const expectedCommentsTitle = 'Comments';
 
@@ -12,7 +12,7 @@ test.describe('Verify menu main buttons', () => {
     // Assert
     expect(title).toContain(expectedCommentsTitle);
   });
-  test('article button navigate to articles page', { tag: '@GAD-R01-03' }, async ({ commentsPage }) => {
+  test('article button navigate to articles page', { tag: ['@smoke', '@GAD-R01-03'] }, async ({ commentsPage }) => {
     // Arrange
     const expectedArticlesTitle = 'Articles';
 
@@ -23,7 +23,7 @@ test.describe('Verify menu main buttons', () => {
     // Assert
     expect(title).toContain(expectedArticlesTitle);
   });
-  test('home page button navigate to home page', { tag: '@GAD-R01-03' }, async ({ articlesPage }) => {
+  test('home page button navigate to home page', { tag: ['@smoke', '@GAD-R01-03'] }, async ({ articlesPage }) => {
     // Arrange
     const expectedHomepageTitle = 'GAD';
 

@@ -17,7 +17,11 @@ export default defineConfig({
   fullyParallel: true,
   retries: 0,
   workers: undefined,
-  reporter: 'html',
+  reporter: [
+    ['list'],
+    ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    ['blob', { outputDir: 'blob-report' }],
+  ],
   use: {
     baseURL: BASE_URL,
     actionTimeout: 0,

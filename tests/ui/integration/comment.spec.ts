@@ -5,7 +5,7 @@ import { waitForResponse } from '@_src/ui/utils/wait.util';
 test.describe('Verify comments API response', () => {
   test(
     'Comments data should be validated on backend',
-    { tag: ['@GAD-R07-05', '@GAD-R05-2', '@logged'] },
+    { tag: ['@sanity', '@GAD-R07-05', '@GAD-R05-2', '@logged'] },
     async ({ createRandomArticle, page }) => {
       const createCommentData = prepareRandomComment();
       let articlePage = createRandomArticle.articlePage;

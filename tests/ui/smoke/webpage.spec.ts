@@ -1,7 +1,7 @@
 import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 
 test.describe('Verify service main pages', () => {
-  test('home page title', { tag: '@GAD-R01-01' }, async ({ homePage }) => {
+  test('home page title', { tag: ['@smoke', '@GAD-R01-01'] }, async ({ homePage }) => {
     // Arrange
     const expectedHomepageTitle = 'GAD';
 
@@ -10,7 +10,7 @@ test.describe('Verify service main pages', () => {
     expect(title).toContain(expectedHomepageTitle);
   });
 
-  test('articles page title', { tag: '@GAD-R01-02' }, async ({ articlesPage }) => {
+  test('articles page title', { tag: ['@smoke', '@GAD-R01-02'] }, async ({ articlesPage }) => {
     // Arrange
     const expectedArticlesTitle = 'Articles';
 
@@ -19,7 +19,7 @@ test.describe('Verify service main pages', () => {
     expect(title).toContain(expectedArticlesTitle);
   });
 
-  test('comments page title', { tag: '@GAD-R01-02' }, async ({ commentsPage }) => {
+  test('comments page title', { tag: ['@smoke', '@GAD-R01-02'] }, async ({ commentsPage }) => {
     // Arrange
     const expectedCommentsTitle = 'Comments';
 

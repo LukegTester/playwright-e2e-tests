@@ -5,7 +5,7 @@ import { waitForResponse } from '@_src/ui/utils/wait.util';
 test.describe('Verify articles', () => {
   test(
     'article is not created without mandatory fields - title not provided',
-    { tag: ['@GAD-R04-01', '@GAD-R07-03', '@logged'] },
+    { tag: ['@sanity', '@GAD-R04-01', '@GAD-R07-03', '@logged'] },
     async ({ addArticlesView, page }) => {
       // Arrange
       const expectedMessage = 'Article was not created';
@@ -27,7 +27,7 @@ test.describe('Verify articles', () => {
   );
   test(
     'article is not created without mandatory fields - body not provided',
-    { tag: ['@GAD-R04-01', '@GAD-R07-03', '@logged'] },
+    { tag: ['@sanity', '@GAD-R04-01', '@GAD-R07-03', '@logged'] },
     async ({ addArticlesView, page }) => {
       // Arrange
       const expectedMessage = 'Article was not created';
@@ -49,7 +49,7 @@ test.describe('Verify articles', () => {
   test.describe('Title length', () => {
     test(
       'article should not be created when title exceed 128 signs',
-      { tag: ['@GAD-R04-02', '@GAD-R07-03', '@logged'] },
+      { tag: ['@sanity', '@GAD-R04-02', '@GAD-R07-03', '@logged'] },
       async ({ addArticlesView, page }) => {
         // Arrange
         const expectedMessage = 'Article was not created';
@@ -69,7 +69,7 @@ test.describe('Verify articles', () => {
     );
     test(
       'create article with title having 128 signs',
-      { tag: ['@GAD-R04-02', '@GAD-R07-03', '@logged'] },
+      { tag: ['@sanity', '@GAD-R04-02', '@GAD-R07-03', '@logged'] },
       async ({ addArticlesView, page }) => {
         // Arrange
         const articleData = prepareRandomArticle(128);
@@ -89,7 +89,7 @@ test.describe('Verify articles', () => {
     );
     test(
       'should return created article from API',
-      { tag: ['@GAD-R07-04', '@logged'] },
+      { tag: ['@sanity', '@GAD-R07-04', '@logged'] },
       async ({ addArticlesView, page }) => {
         // Arrange
         const articleData = prepareRandomArticle();

@@ -1,7 +1,7 @@
 import { apiUrls } from '@_src/api/utils/api.util';
 import { expect, test } from '@_src/ui/fixtures/merge.fixtures';
 
-test.describe('Verify articles API endpoint', { tag: ['@GAD-R08-01', '@smoke'] }, () => {
+test.describe('Verify articles API endpoint', { tag: ['@api', '@GAD-R08-01'] }, () => {
   test.describe('Verify each condition in separate test', () => {
     test('GET articles returns status code 200', async ({ request }) => {
       // Arrange

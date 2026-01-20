@@ -42,6 +42,10 @@ jobs:
       - name: Run Smoke tests
         id: smoke
         run: npm run smoke
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
 
       - name: Upload Playwright Report
         if: always()
@@ -66,6 +70,10 @@ jobs:
       - name: Run Sanity tests
         id: sanity
         run: npm run sanity
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
 
       - name: Upload Playwright Report
         if: always()
@@ -90,6 +98,10 @@ jobs:
       - name: Run API tests
         id: api
         run: npm run api
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
 
       - name: Upload Playwright Report
         if: always()
@@ -114,6 +126,10 @@ jobs:
       - name: Run Regression tests
         id: regression
         run: npm run regression
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
 
       - name: Upload Playwright Report
         if: always()
@@ -131,6 +147,8 @@ jobs:
       - regression-test
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    outputs:
+      has_reports: ${{ steps.blob-check.outputs.has_blobs }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -149,11 +167,24 @@ jobs:
           path: all-blob-reports
           pattern: blob-report-*
           merge-multiple: true
+          if-no-artifact: ignore
+
+      - name: Check for blob reports
+        id: blob-check
+        shell: bash
+        run: |
+          if compgen -G "all-blob-reports/**" > /dev/null; then
+            echo "has_blobs=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_blobs=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Merge into HTML Report
+        if: ${{ steps.blob-check.outputs.has_blobs == 'true' }}
         run: npx playwright merge-reports --reporter html ./all-blob-reports
 
       - name: Upload HTML report
+        if: ${{ steps.blob-check.outputs.has_blobs == 'true' }}
         uses: actions/upload-artifact@v4
         with:
           name: Merged HTML Reports
@@ -162,7 +193,7 @@ jobs:
 
   build-report:
     name: Build Report
-    if: always()
+    if: ${{ always() && needs.merge-report.outputs.has_reports == 'true' }}
     needs: merge-report
     runs-on: ubuntu-latest
     steps:
@@ -182,7 +213,7 @@ jobs:
 
   deploy-report:
     name: Deploy Report
-    if: always()
+    if: ${{ always() && needs.merge-report.outputs.has_reports == 'true' }}
     needs: build-report
     environment:
       name: github-pages

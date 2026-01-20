@@ -18,7 +18,6 @@ test.describe('Create and verify articles', () => {
       // Assert
       await expect(articlePage.articleTitle).toHaveText(articleData.articleTitle);
       await expect(articlePage.articleBody).toHaveText(articleData.articleBody);
-      await expect(articlePage.articleBody).toHaveText('dupa');
     },
   );
   test(

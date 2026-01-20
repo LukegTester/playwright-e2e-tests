@@ -8,14 +8,13 @@ on:
   workflow_dispatch:
 
 env:
-  URL: ${{ secrets.URL }}
+  BASE_URL: ${{ vars.BASE_URL }}
+  USER_EMAIL: ${{ secrets.USER_EMAIL }}
+  USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
   API_URL: ${{ secrets.API_URL }}
   USER_NAME: ${{ secrets.USER_NAME }}
   EMAIL: ${{ secrets.EMAIL }}
   PASSWORD: ${{ secrets.PASSWORD }}
-  BASE_URL: ${{ secrets.URL }}
-  USER_EMAIL: ${{ secrets.EMAIL }}
-  USER_PASSWORD: ${{ secrets.PASSWORD }}
 
 permissions:
   contents: read
